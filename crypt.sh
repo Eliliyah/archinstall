@@ -1,6 +1,6 @@
 #!/usr/bin/bash
 
-mkfs.fat -F32 -n EFI /dev/sda1/EFI
+mkfs.fat -F 32 -n EFI /dev/sda1/EFI
 
 cryptsetup open --type plain --key-file /dev/urandom /dev/sda2 swap
 mkswap -L swap /dev/mapper/swap
