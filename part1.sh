@@ -16,6 +16,8 @@ swapon /dev/nvme0n02
 pacstrap /mnt base linux linux-firmware
 pacstrap /mnt dhcpcd linux-zen base-devel btrfs-progs iw gptfdisk zsh terminus-font intel-ucode snapper grub dosfstools man-db man-pages nano usbutils which neofetch iwctl fish efibootmgr efivars reflector reflector-simple systemd perl perl-timedate zstd 
 
+genfstab -U /mnt >> /mnt/etc/fstab
+
 arch-chroot /mnt
 
 pacman -S networkmanager dhclient --noconfirm --needed
@@ -35,5 +37,3 @@ sed -i "/\[multilib\]/,/Include/"'s/^#//' /etc/pacman.conf
 pacman -Sy --noconfirm
 
 pacman -S git base-devel wayland xorg-xwayland gdm wayland-protocols qt5-wayland libva xorg xdg-user-dirs gnome gnome-shell gnome-tweaks gnome-shell-extensions gnome-power-manager gnome-color-manager gnome-calculator gnome-disk-utility gnome-control-center gnome system-monitor gnome-screenshot gnome-autoar gnome-bluetooth gnome-common gnome-desktop gnome-keyring gnome-nettool gnome-online-accounts gnome-session gnome-settings-daemon eog nemo fish opera --noconfirm
-
-genfstab -U /mnt >> /mnt/etc/fstab
