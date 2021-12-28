@@ -34,13 +34,12 @@ sgdisk --clear \
          --new=2:0:+1GiB   --typecode=2:8200 --change-name=2:swap \
          --new=3:0:0       --typecode=3:8300 --change-name=3:system \
            /dev/sda
-fdisk -l 
 
 #Format the new partitions
 mkfs.fat -F 32 /dev/sda1
 mkswap /dev/sda2
 swapon /dev/sda2
-mkfs.btrfs /dev/sda3
+mkfs.btrfs -f /dev/sda3
 mount /dev/sda3 /mnt
 mkdir /mnt/boot
 mount /dev/sda1 /mnt/boot
@@ -52,8 +51,5 @@ pacstrap /mnt base linux linux-firmware
 pacstrap /mnt dhcpcd linux-zen base-devel btrfs-progs iw gptfdisk zsh terminus-font intel-ucode snapper grub dosfstools man-db man-pages nano usbutils which neofetch python efibootmgr efitools efivar reflector perl perl-timedate iwd git systemd grub-btrfs
 
 genfstab -L -p /mnt >> /mnt/etc/fstab
+confirm "Ready to stop and check the time?" $(echo "Run fstab if it's wrong.")
 
-#Chroot into the new root
-arch-chroot /mnt
-ls
-confirm "Did you make it to the chroot?" $(echo "Cool. Proceed to Part 2.")
