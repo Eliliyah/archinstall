@@ -23,10 +23,11 @@ loadkeys us
 timedatectl --no-ask-password set-timezone America/New_York
 timedatectl set-ntp true
 timedatectl status
-confirm "Did you check the time?" $(echo "I wasn't expecting it to work yet.")
 
 #Partition the drive
 sgdisk --zap-all /dev/sda
+
+confirm "Did it zap?" $(echo "Awesome.")
 
 sgdisk --clear \
          --new=1:0:+550MiB --typecode=1:ef00 --change-name=1:EFI \
