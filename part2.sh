@@ -18,6 +18,36 @@ example-function() {
 
 confirm "Are you ready to keep going?" $(echo "Say your prayers.")
 
+
+#Set the time
+loadkeys us
+timedatectl --no-ask-password set-timezone America/New_York
+timedatectl set-ntp true
+systemctl enable systemd-timesyncd.service
+locale-gen
+
+#Install important packages
+pacman -Syu --noconfirm
+pacman -S networkmanager dhclient pacman-contrib curl dhcpcd rsync --needed --noconfirm
+pacman -S linux-zen linux-lts --noconfirm
+pacman -S gdm gnome-shell gnome-terminal gnome-desktop cinnamon-desktop gnome-control-center gnome-system-monitor gnome-tweaks gparted gnome-color-manager gnome-usage gnome-screenshot gnome-keyring gnome-nettool flatpak wget 
+pacman -S wayland xorg-xwayland wayland-protocols qt5-wayland libva xorg xdg-user-dirs payucontrol yajl libappimage
+pacman -S nemo fish opera meld file-roller bitwarden code gnome-calculator inkscape libreoffice-fresh virtualbox qbittorrent strawberry thunderbird totem bpytop chrome-gnome-shell firefox cryptsetup gimp opera-ffmpeg-codecs os-prober pam-u2f rclone 
+pacman -S virtualbox-guest-utils 
+
+confirm "Did everything go as planned?" $(echo "Don't worry. There's still time to break everything.")
+
+#Check the time again
+timedatectl set-ntp true
+timedatectl status 
+confirm "Did you check the time?" $(echo "We're going to keep checking.")
+
+#Clone into the install directory
+git clone https://github.com/Eliliyah/archinstall.git
+cd archinstall
+chmod +x part2.sh
+confirm "Are we cloned?" $(echo "Excellent. Time to sudo EDITOR=nano visudo and uncomment the wheel group.")
+
 #Set the root password
 passwd
 confirm "Did you set the root password?" $(echo "Excellent. You haven't broken it. Yet.")
@@ -34,7 +64,6 @@ mv /etc/locale.gen /etc/backupfolder
 mv /etc/pacman.d/mirrorlist /etc/backupfolder
 mv /etc/pacman.conf /etc/backupfolder
 mv /etc/mkinitcpio.conf /etc/backupfolder
-ls /etc/backupfolder
 confirm "Did the files backup successfully?" $(echo "Excellent. You haven't broken it. Yet.")
 
 #Copy files
