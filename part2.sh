@@ -18,6 +18,10 @@ example-function() {
 
 confirm "Are you ready to keep going?" $(echo "Say your prayers.")
 
+#Chroot into the new root
+arch-chroot /mnt
+ls
+confirm "Did you make it to the chroot?" $(echo "Cool.")
 
 #Set the time
 loadkeys us
@@ -30,11 +34,6 @@ locale-gen
 pacman -Syu --noconfirm
 pacman -S networkmanager dhclient pacman-contrib curl dhcpcd rsync --needed --noconfirm
 pacman -S linux-zen linux-lts --noconfirm
-pacman -S gdm gnome-shell gnome-terminal gnome-desktop cinnamon-desktop gnome-control-center gnome-system-monitor gnome-tweaks gparted gnome-color-manager gnome-usage gnome-screenshot gnome-keyring gnome-nettool flatpak wget 
-pacman -S wayland xorg-xwayland wayland-protocols qt5-wayland libva xorg xdg-user-dirs payucontrol yajl libappimage
-pacman -S nemo fish opera meld file-roller bitwarden code gnome-calculator inkscape libreoffice-fresh virtualbox qbittorrent strawberry thunderbird totem bpytop chrome-gnome-shell firefox cryptsetup gimp opera-ffmpeg-codecs os-prober pam-u2f rclone 
-pacman -S virtualbox-guest-utils 
-
 confirm "Did everything go as planned?" $(echo "Don't worry. There's still time to break everything.")
 
 #Check the time again
@@ -75,38 +74,15 @@ cp /archinstall/locale.conf /etc/locale.conf
 cp /archinstall/endeavouros-mirrorlist /etc/pacman.d/endeavouros-mirrorlist
 cp /archinstall/vconsole.conf /etc/vconsole.conf
 cp /archinstall/mkinitcpio.conf /etc/mkinitcpio.conf
+ls /etc/backupfolder
 confirm "Did all the files copy successfully?" $(echo "Whew!")
 
 #Install Extras
-cd /tmp
-git clone https://aur.archlinux.org/package-query.git
-cd package-query/
-makepkg -si && cd /tmp/
-git clone https://aur.archlinux.org/yaourt.git
-cd yaourt/
-makepkg -si
-confirm "Did yaourt install successfully?" $(echo "Why does that always make me want yogurt?")
-yaourt -S pamac-aur
-confirm "Did pamac install?" $(echo "Okay, but you know that's the lazy way of doing things.")
-cd /tmp 
-git clone https://aur.archlinux.org/yay.git
-cd yay
-makepkg -si 
-confirm "Did yay install successfully?" $(echo "Yay! (ba dum tss)")
-yay -S appimagelauncher
-confirm "Can you install appimages now?" $(echo "Awesome. We're almost done.")
-yay -S icedrive-appimage
-confirm "Is it cold in here?" $(echo "No, it's not - it's Florida.")
 cd/tmp
 curl -O https://blackarch.org/strap.sh
 chmod +x strap.sh
 ./strap.sh
 confirm "Do you really think you're going to need that?" $(echo "Whatever you say, Ellie.")
-cd/tmp
-git clone https://github.com/safing/portmaster-packaging
-cd portmaster-packaging/linux
-makepkg -is
-confirm "Did portmaster install successfully?" $(echo "Finally.")
 
 #Enable system services
 reflector
@@ -114,8 +90,6 @@ systemctl enable NetworkManager
 systemctl enable systemd-timesyncd.service
 systemctl enable gdm.service
 systemctl enable dhcpcd
-systemctl enable portmaster
-timedatectl status 
 confirm "Did system services enable?" $(echo "Okay, time for a deep breath.")
 
 #Run mkinitcpio 
@@ -126,11 +100,3 @@ confirm "Did it work?" $(echo "Thank God.")
 grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB
 grub-mkconfig -o /boot/grub/grub.cfg
 confirm "Are you ready to get out of here?" $(echo "Same.")
-
-#Exit the chroot
-exit
-confirm "Last chance. Everything look good?" $(echo "Alright, let's do it.")
-
-#Unmount the drive and reboot
-umount -R /mnt
-reboot
