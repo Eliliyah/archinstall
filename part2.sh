@@ -18,17 +18,6 @@ example-function() {
 
 confirm "Are you ready to keep going?" $(echo "Say your prayers.")
 
-#Chroot into the new root
-arch-chroot /mnt
-ls
-confirm "Did you make it to the chroot?" $(echo "Cool.")
-
-#Set the time
-loadkeys us
-timedatectl --no-ask-password set-timezone America/New_York
-timedatectl set-ntp true
-systemctl enable systemd-timesyncd.service
-locale-gen
 
 #Install important packages
 pacman -Syu --noconfirm
