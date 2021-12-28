@@ -18,7 +18,14 @@ example-function() {
 
 confirm "Did you check what you're supposed to check?" $(echo "Excellent. You haven't broken it. Yet.")
 
-loadkeys us
+#Use timedatectl(1) to ensure the system clock is accurate:
+loadkeys us 
+timedatectl --no-ask-password set-timezone America/New_York
+timedatectl set-ntp true
+timedatectl status
+confirm "Did you check what you're supposed to check?" $(echo "Excellent. You haven't broken it. Yet.")
+
+#Partition the drive
 sgdisk --zap-all /dev/sda
 
 sgdisk --clear \
@@ -30,6 +37,7 @@ fdisk -l
 
 confirm "Did you check what you're supposed to check?" $(echo "Excellent. You haven't broken it. Yet.")
 
+#Format the new partitions
 mkfs.fat -F 32 /dev/sda1
 mkswap /dev/sda2
 swapon /dev/sda2
@@ -38,44 +46,52 @@ mount /dev/sda3 /mnt
 mkdir /mnt/boot
 mount /dev/sda1 /mnt/boot
 fdisk -l 
-
 confirm "Did you check what you're supposed to check?" $(echo "Excellent. You haven't broken it. Yet.")
 
+#Install the base system
 pacstrap /mnt base linux linux-firmware
 pacstrap /mnt dhcpcd linux-zen base-devel btrfs-progs iw gptfdisk zsh terminus-font intel-ucode snapper grub dosfstools man-db man-pages nano usbutils which neofetch fish efibootmgr reflector perl perl-timedate iwd git systemd grub-btrfs
 
 genfstab -L -p /mnt >> /mnt/etc/fstab
 
+#Chroot into the new root
 arch-chroot /mnt
-mkdir /etc/backup
-ls /etc
-
+ls
 confirm "Did you check what you're supposed to check?" $(echo "Excellent. You haven't broken it. Yet.")
 
+#Set the time
 loadkeys us
 timedatectl --no-ask-password set-timezone America/New_York
 timedatectl set-ntp true
+systemctl enable systemd-timesyncd.service
 locale-gen
 timedatectl status 
-
 confirm "Did you check what you're supposed to check?" $(echo "Excellent. You haven't broken it. Yet.")
 
+#Create the backup directory
+mkdir /etc/backup
+ls /etc
+confirm "Did you check what you're supposed to check?" $(echo "Excellent. You haven't broken it. Yet.")
+
+#Install important packages
 pacman -Syu --noconfirm
 pacman -S networkmanager dhclient pacman-contrib curl dhcpcd rsync --needed --noconfirm
 pacman -S linux-zen linux-lts --noconfirm
 pacman -S git wayland xorg-xwayland gdm wayland-protocols qt5-wayland libva xorg xdg-user-dirs gnome-shell nemo fish opera
 
-systemctl enable systemd-timesyncd.service
-timedatectl set-ntp true
-timedatectl status 
-
 confirm "Did you check what you're supposed to check?" $(echo "Excellent. You haven't broken it. Yet.")
 
+#Check the time again
+timedatectl set-ntp true
+timedatectl status 
+confirm "Did you check what you're supposed to check?" $(echo "Excellent. You haven't broken it. Yet.")
+
+#Clone into the install directory
 git clone https://github.com/Eliliyah/archinstall.git
 cd archinstall
+chmod +x part2.sh
 ls
 confirm "Did you check what you're supposed to check?" $(echo "Excellent. You haven't broken it. Yet.")
 
-chmod +x part2.sh
-
+#Edit the sudo file
 sudo EDITOR=nano visudo
