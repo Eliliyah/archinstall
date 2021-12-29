@@ -38,7 +38,7 @@ mkfs.fat -F 32 -n EFI /dev/sda1
 mkswap -L swap -f /dev/sda2 
 mkfs.btrfs /dev/sda3 --label=system -f
 o=defaults,x-mount.mkdir
-o_btrfs=$o
+o_btrfs=$o,@,defaults,noatime,autodefrag,compress=zstd
 mount -t btrfs LABEL=system /mnt 
 btrfs subvolume create /mnt/root
 btrfs subvolume create /mnt/home
