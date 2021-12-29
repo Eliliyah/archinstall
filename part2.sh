@@ -23,7 +23,7 @@ confirm "Did locales generate?"
 
 #Set Timezone
 ln -sf /usr/share/zoneinfo/America/New_York /etc/localtime
-hwclock --systohc
+timedatectl set-timezone America/New_York
 mkdir /etc/backupfolder
 mv /etc/locale.gen /etc/backupfolder
 cp /archinstall/locale.gen /etc/locale.gen
@@ -32,17 +32,21 @@ cp /archinstall/vconsole.conf /etc/vconsole.conf
 timedatectl status
 confirm "Did the time set correctly?" 
 
-#Install additional kernels
-pacman -S linux-zen linux-lts --noconfirm
+#Enable timesync
+systemctl enable systemd-timesyncd.service
+confirm "Did timesync enable?" 
+
+#Install LTS kernel
+pacman -S linux-lts --noconfirm
 
 #Install important packages
 pacman -Syu --noconfirm
 pacman -S networkmanager dhclient pacman-contrib curl dhcpcd rsync --needed --noconfirm
-confirm "Enter the root password." 
+confirm "Ready to enter the root password?" 
 
 #Set the root password
 passwd
-confirm "Enter user password." 
+confirm "Ready to enter user password?" 
 
 #add yourself as a user
 useradd -m -G wheel -s /bin/bash ellie
@@ -94,15 +98,10 @@ mkinitcpio -p linux-zen
 mkinitcpio -p linux-lts
 confirm "Did it work?" 
 
-#Enable timesync
-timedatectl set-ntp true
-systemctl enable systemd-timesyncd.service
-confirm "Did timesync enable?" 
-
 #Install grub
 grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB
 grub-mkconfig -o /boot/grub/grub.cfg
-confirm "Double check locales and reboot." 
-nano /etc/locale.conf
 confirm "All good?" 
-exit
+systemctl enable systemd-timesyncd.service
+timedatectl
+
