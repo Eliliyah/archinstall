@@ -31,6 +31,7 @@ sgdisk --clear \
          --new=2:0:+1GiB   --typecode=2:8200 \
          --new=3:0:0       --typecode=3:8300 \
            /dev/sda
+confirm "Did it zap?"
 
 #Partition the drive and create subvolumes
 mkfs.fat -F 32 -n EFI /dev/sda1 
@@ -58,10 +59,4 @@ confirm "Partitions look okay?"
 #Install the base system
 pacstrap /mnt base linux linux-firmware
 pacstrap /mnt dhcpcd linux-zen base-devel btrfs-progs iw gptfdisk zsh terminus-font intel-ucode snapper grub dosfstools man-db man-pages nano usbutils util-linux which neofetch python efibootmgr efitools efivar reflector perl perl-timedate iwd git systemd grub-btrfs xorg xdg-user-dirs 
-confirm "Was install successful?" 
-
-#Prepare the next steps
-chmod +x part2.sh
-timedatectl status
-genfstab -L -p /mnt >> /mnt/etc/fstab
-nano /mnt/etc/fstab
+confirm "Generate fstab, chroot, generate locales and proceed to step 2." 
