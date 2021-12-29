@@ -1,6 +1,6 @@
 #!/usr/bin/bash
 
-sudo Pacman -Syu 
+sudo pacman -Syu 
 sudo pacman -S flatpak libappimage wget yajl
 
 sudo pacman -S nemo fish opera gimp discord meld file-roller opera-ffmpeg-codecs bitwarden code inkscape virtualbox qbittorrent strawberry thunderbird totem bpytop firefox cryptsetup gimp pam-u2f rclone gparted 
