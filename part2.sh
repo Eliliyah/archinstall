@@ -17,6 +17,10 @@ example-function() {
 }
 confirm "Are you ready to keep going?" 
 
+#Generate locales
+locale-gen 
+confirm "Did locales generate?"
+
 #Set Timezone
 ln -sf /usr/share/zoneinfo/America/New_York /etc/localtime
 hwclock --systohc
@@ -80,10 +84,8 @@ confirm "Are we gnomed?"
 #Enable system services
 reflector
 systemctl enable NetworkManager
-systemctl enable systemd-timesyncd.service
 systemctl enable dhcpcd
 systemctl enable gdm.service
-timedatectl status
 confirm "Did system services enable?" 
 
 #Run mkinitcpio 
@@ -92,7 +94,15 @@ mkinitcpio -p linux-zen
 mkinitcpio -p linux-lts
 confirm "Did it work?" 
 
+#Enable timesync
+timedatectl set-ntp true
+systemctl enable systemd-timesyncd.service
+confirm "Did timesync enable?" 
+
 #Install grub
 grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB
 grub-mkconfig -o /boot/grub/grub.cfg
-confirm "Double check grub and reboot." 
+confirm "Double check locales and reboot." 
+nano /etc/locale.conf
+confirm "All good?" 
+exit
