@@ -1,7 +1,5 @@
 #!/usr/bin/bash
 
-#!/usr/bin/bash
-
 #FUNCTIONS GO HERE
 
 confirm() {         
@@ -20,6 +18,11 @@ example-function() {
 
 confirm "Are you ready to do this?"
 
+#Use timedatectl(1) to ensure the system clock is accurate:
+loadkeys us 
+timedatectl set-timezone America/New_York
+timedatectl set-ntp true
+
 #Format the drive
 sgdisk --zap-all /dev/sda
 
@@ -35,7 +38,7 @@ mkfs.fat -F 32 -n EFI /dev/sda1
 mkswap -L swap -f /dev/sda2 
 mkfs.btrfs /dev/sda3 --label=system -f
 o=defaults,x-mount.mkdir
-o_btrfs=$o
+o_btrfs=$o,@,defaults,noatime,autodefrag,compress=zstd
 mount -t btrfs LABEL=system /mnt 
 btrfs subvolume create /mnt/root
 btrfs subvolume create /mnt/home
