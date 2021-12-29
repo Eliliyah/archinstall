@@ -20,21 +20,37 @@ confirm "Are you ready to keep going?"
 #Generate locales
 locale-gen 
 confirm "Did locales generate?"
+echo "en_US.UTF-8 UTF-8">> /etc/locale.gen
+echo "ellie">> /etc/hostname
+echo "KEYMAP=us">> /etc/vconsole.conf
+echo "FONT=Lat2-Terminus16">> /etc/vconsole.conf
+nano /etc/locale.gen
+nano /etc/hostname
+nano /etc/vconsole.conf
+
 
 #Set Timezone
-ln -sf /usr/share/zoneinfo/America/New_York /etc/localtime
-timedatectl set-timezone America/New_York
 mkdir /etc/backupfolder
-mv /etc/locale.gen /etc/backupfolder
-cp /archinstall/locale.gen /etc/locale.gen
-cp /archinstall/locale.conf /etc/locale.conf
-cp /archinstall/vconsole.conf /etc/vconsole.conf
+timedatectl set-timezone America/New_York
+timedatectl set-ntp true
+echo "LANGUAGE=en_US.UTF-8
+LC_ALL=en_US.UTF-8
+LC_ADDRESS=en_US.UTF-8
+LC_NAME=en_US.UTF-8
+LC_MONETARY=en_US.UTF-8
+LC_PAPER=en_US.UTF-8
+LC_IDENTIFICATION=en_US.UTF-8
+LC_TELEPHONE=en_US.UTF-8
+LC_MEASUREMENT=en_US.UTF-8
+LC_TIME=en_US.UTF-8
+LC_NUMERIC=en_US.UTF-8
+LANG=en_US.UTF-8">> /etc/locale.conf
+nano /etc/locale.conf
+
+#cp /archinstall/locale.conf /etc/locale.conf
+#cp /archinstall/vconsole.conf /etc/vconsole.conf
 timedatectl status
 confirm "Did the time set correctly?" 
-
-#Enable timesync
-systemctl enable systemd-timesyncd.service
-confirm "Did timesync enable?" 
 
 #Install LTS kernel
 pacman -S linux-lts --noconfirm
@@ -42,11 +58,10 @@ pacman -S linux-lts --noconfirm
 #Install important packages
 pacman -Syu --noconfirm
 pacman -S networkmanager dhclient pacman-contrib curl dhcpcd rsync --needed --noconfirm
-confirm "Ready to enter the root password?" 
+confirm "Ready to enter the root and user passwords?" 
 
 #Set the root password
 passwd
-confirm "Ready to enter user password?" 
 
 #add yourself as a user
 useradd -m -G wheel -s /bin/bash ellie
@@ -54,15 +69,11 @@ passwd ellie
 echo "ellie ALL=(ALL)ALL">> /etc/sudoers
 confirm "Do you exist now?" 
 
-#Move files
+#Move and copy files
 mv /etc/pacman.d/mirrorlist /etc/backupfolder
 mv /etc/pacman.conf /etc/backupfolder
 mv /etc/mkinitcpio.conf /etc/backupfolder
-ls /etc/backupfolder
-confirm "Did the files backup successfully?" 
-
-#Copy files
-cp /archinstall/hostname /etc/hostname
+#cp /archinstall/hostname /etc/hostname
 cp /archinstall/mirrorlist /etc/pacman.d/mirrorlist
 cp /archinstall/pacman.conf /etc/pacman.conf
 cp /archinstall/endeavouros-mirrorlist /etc/pacman.d/endeavouros-mirrorlist
@@ -90,6 +101,7 @@ reflector
 systemctl enable NetworkManager
 systemctl enable dhcpcd
 systemctl enable gdm.service
+systemctl enable systemd-timesyncd.service
 confirm "Did system services enable?" 
 
 #Run mkinitcpio 
@@ -102,6 +114,4 @@ confirm "Did it work?"
 grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB
 grub-mkconfig -o /boot/grub/grub.cfg
 confirm "All good?" 
-systemctl enable systemd-timesyncd.service
-timedatectl
-
+timedatectl status
