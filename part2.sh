@@ -17,8 +17,17 @@ example-function() {
 }
 confirm "Are you ready to keep going?" 
 
-timedatectl set-timezone America/New_York
-timedatectl set-ntp true
+#Set Timezone
+ln -sf /usr/share/zoneinfo/America/New_York /etc/localtime
+hwclock --systohc
+gen-locale 
+mkdir /etc/backupfolder
+mv /etc/locale.gen /etc/backupfolder
+cp /archinstall/locale.gen /etc/locale.gen
+cp /archinstall/locale.conf /etc/locale.conf
+cp /archinstall/vconsole.conf /etc/vconsole.conf
+timedatectl status
+confirm "Did the time set correctly?" 
 
 #Install additional kernels
 pacman -S linux-zen linux-lts --noconfirm
@@ -38,9 +47,7 @@ passwd ellie
 echo "ellie ALL=(ALL)ALL">> /etc/sudoers
 confirm "Do you exist now?" 
 
-#Create the backup directory and move files
-mkdir /etc/backupfolder
-mv /etc/locale.gen /etc/backupfolder
+#Move files
 mv /etc/pacman.d/mirrorlist /etc/backupfolder
 mv /etc/pacman.conf /etc/backupfolder
 mv /etc/mkinitcpio.conf /etc/backupfolder
@@ -49,12 +56,9 @@ confirm "Did the files backup successfully?"
 
 #Copy files
 cp /archinstall/hostname /etc/hostname
-cp /archinstall/locale.gen /etc/locale.gen
 cp /archinstall/mirrorlist /etc/pacman.d/mirrorlist
 cp /archinstall/pacman.conf /etc/pacman.conf
-cp /archinstall/locale.conf /etc/locale.conf
 cp /archinstall/endeavouros-mirrorlist /etc/pacman.d/endeavouros-mirrorlist
-cp /archinstall/vconsole.conf /etc/vconsole.conf
 cp /archinstall/mkinitcpio.conf /etc/mkinitcpio.conf
 ls /etc/pacman.d
 confirm "Did all the files copy successfully?" 
@@ -91,8 +95,6 @@ confirm "Did it work?"
 #Install grub
 grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB
 grub-mkconfig -o /boot/grub/grub.cfg
-timedatectl set-timezone America/New_York
-timedatectl set-ntp true
 timedatectl status
 confirm "Are you ready to get out of here?" 
 exit 
