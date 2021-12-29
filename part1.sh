@@ -47,25 +47,14 @@ confirm "Partitions look okay?"
 
 #Install the base system
 pacstrap /mnt base linux linux-firmware
-pacstrap /mnt dhcpcd linux-zen base-devel btrfs-progs iw gptfdisk zsh terminus-font intel-ucode snapper grub dosfstools man-db man-pages nano usbutils which neofetch python efibootmgr efitools efivar reflector perl perl-timedate iwd git systemd grub-btrfs xorg xdg-user-dirs 
+pacstrap /mnt dhcpcd linux-zen base-devel btrfs-progs iw gptfdisk zsh terminus-font intel-ucode snapper grub dosfstools man-db man-pages nano usbutils util-linux which neofetch python efibootmgr efitools efivar reflector perl perl-timedate iwd git systemd grub-btrfs xorg xdg-user-dirs 
 confirm "Was install successful?" 
 
 #Generate fstab
-genfstab -L -p /mnt >> /mnt/etc/fstab
+genfstab -U /mnt >> /mnt/etc/fstab
 confirm "Ready to chroot?" 
 
-#Chroot into the new root
-arch-chroot /mnt
-git clone https://github.com/Eliliyah/archinstall.git
-cd archinstall
-chmod +x part1.sh
-./part1.sh
-chmod +x part2.sh
-chmod+x postinstall.sh
-cd archinstall
-ls
+#Prepare the next steps
+chmod +x copy.sh
+chmod+x part2.sh
 timedatectl status
-
-#uncomment wheel group
-sudo EDITOR=nano visudo
-
