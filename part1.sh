@@ -61,7 +61,7 @@ pacstrap /mnt dhcpcd linux-zen base-devel btrfs-progs iw gptfdisk zsh terminus-f
 confirm "Was install successful?" 
 
 #Generate fstab
-genfstab -U /mnt >> /mnt/etc/fstab
+genfstab -L -p /mnt >> /mnt/etc/fstab
 confirm "Ready to chroot?" 
 
 #Prepare the next steps
