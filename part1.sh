@@ -50,30 +50,22 @@ pacstrap /mnt base linux linux-firmware
 pacstrap /mnt dhcpcd linux-zen base-devel btrfs-progs iw gptfdisk zsh terminus-font intel-ucode snapper grub dosfstools man-db man-pages nano usbutils which neofetch python efibootmgr efitools efivar reflector perl perl-timedate iwd git systemd grub-btrfs xorg xdg-user-dirs 
 confirm "Was install successful?" 
 
-#Copy script to the new system
-mkdir /mnt/archinstall
-mv /archinstall/part2.sh /mnt/archinstall
-chmod +x /mnt/archinstall/part2.sh
-mv /archinstall/part3.sh /mnt/archinstall
-chmod +x /mnt/archinstall/part2.sh
-mv /archinstall/postinstall.sh /mnt/archinstall
-mv /archinstall/hostname /mnt/archinstall
-mv /archinstall/locale.gen /mnt/archinstall
-mv /archinstall/mirrorlist /mnt/archinstall
-mv /archinstall/pacman.conf /mnt/archinstall
-mv /archinstall/locale.conf /mnt/archinstall
-mv /archinstall/endeavouros-mirrorlist /mnt/archinstall
-mv /archinstall/vconsole.conf /mnt/archinstall
-mv /archinstall/mkinitcpio.conf /mnt/archinstall
-ls /mnt/archinstall
-confirm "Did the files make it over?" 
-
+#Generate fstab
 genfstab -L -p /mnt >> /mnt/etc/fstab
 confirm "Ready to chroot?" 
 
 #Chroot into the new root
 arch-chroot /mnt
+git clone https://github.com/Eliliyah/archinstall.git
+cd archinstall
+chmod +x part1.sh
+./part1.sh
+chmod +x part2.sh
+chmod+x postinstall.sh
 cd archinstall
 ls
 timedatectl status
+
+#uncomment wheel group
+sudo EDITOR=nano visudo
 
