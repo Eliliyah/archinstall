@@ -75,6 +75,7 @@ reflector
 systemctl enable NetworkManager
 systemctl enable systemd-timesyncd.service
 systemctl enable dhcpcd
+timedatectl status
 confirm "Did system services enable?" 
 
 #Install gnome packages
@@ -83,6 +84,7 @@ pacman -S gdm gnome-shell
 pacman -S gnome-terminal --needed gnome-desktop cinnamon-desktop gnome-control-center gnome-system-monitor gnome-tweaks  gnome-color-manager gnome-usage gnome-screenshot gnome-keyring gnome-nettool gnome-calculator 
 pacman -S nemo
 systemctl enable gdm.service
+confirm "Are we gnomed?" 
 
 #Run mkinitcpio 
 mkinitcpio -p linux
@@ -94,5 +96,4 @@ confirm "Did it work?"
 grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB
 grub-mkconfig -o /boot/grub/grub.cfg
 chmod +x postinstall.sh
-timedatectl status
 confirm "Are you ready to get out of here?" 
