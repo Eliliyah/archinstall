@@ -58,7 +58,8 @@ confirm "Partitions look okay?"
 
 #Install the base system
 pacstrap /mnt base linux linux-firmware
-pacstrap /mnt dhcpcd linux-zen base-devel btrfs-progs iw gptfdisk zsh terminus-font intel-ucode snapper grub dosfstools man-db man-pages nano usbutils util-linux which neofetch python efibootmgr efitools efivar reflector perl perl-timedate iwd git systemd grub-btrfs xorg xdg-user-dirs 
+pacstrap /mnt btrfs-progs
+pacstrap /mnt dhcpcd linux-zen base-devel iw gptfdisk zsh terminus-font intel-ucode snapper grub dosfstools man-db man-pages nano usbutils util-linux which neofetch python efibootmgr efitools efivar reflector perl perl-timedate iwd git systemd grub-btrfs xorg xdg-user-dirs 
 confirm "Did it work?"
 
 #Generate fstab
