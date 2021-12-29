@@ -15,16 +15,17 @@ confirm() {
 example-function() {
     echo "Excellent. You haven't broken it. Yet."
 }
-
 confirm "Are you ready to keep going?" 
 
 timedatectl set-timezone America/New_York
 timedatectl set-ntp true
 
+#Install additional kernels
+pacman -S linux-zen linux-lts --noconfirm
+
 #Install important packages
 pacman -Syu --noconfirm
 pacman -S networkmanager dhclient pacman-contrib curl dhcpcd rsync --needed --noconfirm
-pacman -S linux-zen linux-lts --noconfirm
 confirm "Did everything go as planned?" 
 
 #Set the root password
@@ -43,6 +44,7 @@ mv /etc/locale.gen /etc/backupfolder
 mv /etc/pacman.d/mirrorlist /etc/backupfolder
 mv /etc/pacman.conf /etc/backupfolder
 mv /etc/mkinitcpio.conf /etc/backupfolder
+ls /etc/backupfolder
 confirm "Did the files backup successfully?" 
 
 #Copy files
@@ -54,7 +56,7 @@ cp /archinstall/locale.conf /etc/locale.conf
 cp /archinstall/endeavouros-mirrorlist /etc/pacman.d/endeavouros-mirrorlist
 cp /archinstall/vconsole.conf /etc/vconsole.conf
 cp /archinstall/mkinitcpio.conf /etc/mkinitcpio.conf
-ls /etc/backupfolder
+ls /etc/pacman.d
 confirm "Did all the files copy successfully?" 
 
 #Install Extras
@@ -75,6 +77,7 @@ confirm "Did system services enable?"
 pacman -S wayland xorg-xwayland wayland-protocols libva
 pacman -S gdm gnome-shell 
 pacman -S gnome-terminal --needed gnome-desktop cinnamon-desktop gnome-control-center gnome-system-monitor gnome-tweaks  gnome-color-manager gnome-usage gnome-screenshot gnome-keyring gnome-nettool gnome-calculator 
+pacman -S nemo
 systemctl enable gdm.service
 cp /archinstall/postinstall.sh /home/ellie/Downloads 
 chmod +x /home/ellie/Downloads/postinstall.sh
@@ -88,5 +91,9 @@ confirm "Did it work?"
 #Install grub
 grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB
 grub-mkconfig -o /boot/grub/grub.cfg
+timedatectl set-timezone America/New_York
+timedatectl set-ntp true
+timedatectl status
 confirm "Are you ready to get out of here?" 
 exit 
+umount -R /mnt
