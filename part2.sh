@@ -20,7 +20,6 @@ confirm "Are you ready to keep going?"
 #Set Timezone
 ln -sf /usr/share/zoneinfo/America/New_York /etc/localtime
 hwclock --systohc
-locale-gen 
 mkdir /etc/backupfolder
 mv /etc/locale.gen /etc/backupfolder
 cp /archinstall/locale.gen /etc/locale.gen
@@ -84,6 +83,7 @@ pacman -S gdm gnome-shell
 pacman -S gnome-terminal --needed gnome-desktop cinnamon-desktop gnome-control-center gnome-system-monitor gnome-tweaks  gnome-color-manager gnome-usage gnome-screenshot gnome-keyring gnome-nettool gnome-calculator 
 pacman -S nemo
 systemctl enable gdm.service
+chmod +x postinstall.sh
 confirm "Are we gnomed?" 
 
 #Run mkinitcpio 
@@ -95,5 +95,4 @@ confirm "Did it work?"
 #Install grub
 grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB
 grub-mkconfig -o /boot/grub/grub.cfg
-chmod +x postinstall.sh
 confirm "Are you ready to get out of here?" 
