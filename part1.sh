@@ -51,7 +51,7 @@ pacstrap /mnt dhcpcd linux-zen base-devel btrfs-progs iw gptfdisk zsh terminus-f
 confirm "Was install successful?" 
 
 #Copy script to the new system
-mkrdir /mnt/archinstall
+mkdir /mnt/archinstall
 mv /archinstall/part2.sh /mnt/archinstall
 chmod +x /mnt/archinstall/part2.sh
 mv /archinstall/part3.sh /mnt/archinstall
