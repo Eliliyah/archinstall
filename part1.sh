@@ -18,6 +18,9 @@ example-function() {
 
 confirm "Are you ready to do this?"
 
+
+
+
 #Use timedatectl(1) to ensure the system clock is accurate:
 loadkeys us 
 timedatectl set-timezone America/New_York
