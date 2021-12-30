@@ -18,18 +18,11 @@ example-function() {
 confirm "Are you ready to keep going?" 
 
 #Generate locales
+ln -sf /usr/share/zoneinfo/America/New_York /etc/localtime
 hwclock --systohc
+echo "en_US.UTF-8 UTF-8">> /etc/locale.gen
 locale-gen 
 confirm "Did locales generate?"
-echo "en_US.UTF-8 UTF-8">> /etc/locale.gen
-echo "ellie">> /etc/hostname
-echo "KEYMAP=us
-FONT=Lat2-Terminus16">> /etc/vconsole.conf
-
-
-#Set Timezone
-timedatectl set-timezone America/New_York
-timedatectl set-ntp true
 echo "LANG=en_US.UTF-8
 LC_ALL=en_US.UTF-8
 LC_ADDRESS=en_US.UTF-8
@@ -42,16 +35,11 @@ LC_MEASUREMENT=en_US.UTF-8
 LC_TIME=en_US.UTF-8
 LC_NUMERIC=en_US.UTF-8
 LANGUAGE=en_US.UTF-8">> /etc/locale.conf
-timedatectl status
+echo "KEYMAP=us
+FONT=Lat2-Terminus16">> /etc/vconsole.conf
+echo "ellie">> /etc/hostname
+nano /etc/locale.gen
 confirm "Did the time set correctly?" 
-
-#Install LTS kernel
-pacman -S linux-lts --noconfirm
-
-#Install important packages
-pacman -Syu --noconfirm
-pacman -S networkmanager dhclient pacman-contrib curl dhcpcd rsync opera gedit fish --noconfirm
-confirm "Ready to enter the root and user passwords?" 
 
 #Set the root password
 passwd
@@ -61,6 +49,14 @@ useradd -m -G wheel -s /bin/bash ellie
 passwd ellie
 echo "ellie ALL=(ALL)ALL">> /etc/sudoers
 confirm "Do you exist now?" 
+
+#Install LTS kernel
+pacman -S linux-lts --noconfirm
+
+#Install important packages
+pacman -Syu --noconfirm
+pacman -S networkmanager dhclient pacman-contrib curl dhcpcd rsync opera gedit fish --noconfirm
+confirm "Ready to enter the root and user passwords?" 
 
 #Move and copy files
 mkdir /etc/backupfolder
@@ -94,7 +90,6 @@ reflector
 systemctl enable NetworkManager
 systemctl enable dhcpcd
 systemctl enable gdm.service
-systemctl enable systemd-timesyncd.service
 confirm "Did system services enable?" 
 
 #Run mkinitcpio 
