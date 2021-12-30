@@ -18,6 +18,7 @@ example-function() {
 confirm "Are you ready to keep going?" 
 
 #Generate locales
+hwclock --systohc
 locale-gen 
 confirm "Did locales generate?"
 echo "en_US.UTF-8 UTF-8">> /etc/locale.gen
@@ -29,7 +30,7 @@ FONT=Lat2-Terminus16">> /etc/vconsole.conf
 #Set Timezone
 timedatectl set-timezone America/New_York
 timedatectl set-ntp true
-echo "LANGUAGE=en_US.UTF-8
+echo "LANG=en_US.UTF-8
 LC_ALL=en_US.UTF-8
 LC_ADDRESS=en_US.UTF-8
 LC_NAME=en_US.UTF-8
@@ -40,7 +41,7 @@ LC_TELEPHONE=en_US.UTF-8
 LC_MEASUREMENT=en_US.UTF-8
 LC_TIME=en_US.UTF-8
 LC_NUMERIC=en_US.UTF-8
-LANG=en_US.UTF-8">> /etc/locale.conf
+LANGUAGE=en_US.UTF-8">> /etc/locale.conf
 timedatectl status
 confirm "Did the time set correctly?" 
 
@@ -49,7 +50,7 @@ pacman -S linux-lts --noconfirm
 
 #Install important packages
 pacman -Syu --noconfirm
-pacman -S networkmanager dhclient pacman-contrib curl dhcpcd rsync opera --noconfirm
+pacman -S networkmanager dhclient pacman-contrib curl dhcpcd rsync opera gedit fish --noconfirm
 confirm "Ready to enter the root and user passwords?" 
 
 #Set the root password
@@ -93,6 +94,7 @@ reflector
 systemctl enable NetworkManager
 systemctl enable dhcpcd
 systemctl enable gdm.service
+systemctl enable systemd-timesyncd.service
 confirm "Did system services enable?" 
 
 #Run mkinitcpio 
