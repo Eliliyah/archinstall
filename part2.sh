@@ -22,15 +22,11 @@ locale-gen
 confirm "Did locales generate?"
 echo "en_US.UTF-8 UTF-8">> /etc/locale.gen
 echo "ellie">> /etc/hostname
-echo "KEYMAP=us">> /etc/vconsole.conf
-echo "FONT=Lat2-Terminus16">> /etc/vconsole.conf
-nano /etc/locale.gen
-nano /etc/hostname
-nano /etc/vconsole.conf
+echo "KEYMAP=us
+FONT=Lat2-Terminus16">> /etc/vconsole.conf
 
 
 #Set Timezone
-mkdir /etc/backupfolder
 timedatectl set-timezone America/New_York
 timedatectl set-ntp true
 echo "LANGUAGE=en_US.UTF-8
@@ -45,10 +41,6 @@ LC_MEASUREMENT=en_US.UTF-8
 LC_TIME=en_US.UTF-8
 LC_NUMERIC=en_US.UTF-8
 LANG=en_US.UTF-8">> /etc/locale.conf
-nano /etc/locale.conf
-
-#cp /archinstall/locale.conf /etc/locale.conf
-#cp /archinstall/vconsole.conf /etc/vconsole.conf
 timedatectl status
 confirm "Did the time set correctly?" 
 
@@ -57,7 +49,7 @@ pacman -S linux-lts --noconfirm
 
 #Install important packages
 pacman -Syu --noconfirm
-pacman -S networkmanager dhclient pacman-contrib curl dhcpcd rsync --needed --noconfirm
+pacman -S networkmanager dhclient pacman-contrib curl dhcpcd rsync opera --noconfirm
 confirm "Ready to enter the root and user passwords?" 
 
 #Set the root password
@@ -70,10 +62,10 @@ echo "ellie ALL=(ALL)ALL">> /etc/sudoers
 confirm "Do you exist now?" 
 
 #Move and copy files
+mkdir /etc/backupfolder
 mv /etc/pacman.d/mirrorlist /etc/backupfolder
 mv /etc/pacman.conf /etc/backupfolder
 mv /etc/mkinitcpio.conf /etc/backupfolder
-#cp /archinstall/hostname /etc/hostname
 cp /archinstall/mirrorlist /etc/pacman.d/mirrorlist
 cp /archinstall/pacman.conf /etc/pacman.conf
 cp /archinstall/endeavouros-mirrorlist /etc/pacman.d/endeavouros-mirrorlist
@@ -101,7 +93,6 @@ reflector
 systemctl enable NetworkManager
 systemctl enable dhcpcd
 systemctl enable gdm.service
-systemctl enable systemd-timesyncd.service
 confirm "Did system services enable?" 
 
 #Run mkinitcpio 
@@ -114,4 +105,3 @@ confirm "Did it work?"
 grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB
 grub-mkconfig -o /boot/grub/grub.cfg
 confirm "All good?" 
-timedatectl status
