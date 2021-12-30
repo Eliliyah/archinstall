@@ -56,7 +56,7 @@ pacman -S linux-lts --noconfirm
 #Install important packages
 pacman -Syu --noconfirm
 pacman -S networkmanager dhclient pacman-contrib curl dhcpcd rsync opera gedit fish --noconfirm
-confirm "Ready to enter the root and user passwords?" 
+confirm "Did everything install?" 
 
 #Move and copy files
 mkdir /etc/backupfolder
