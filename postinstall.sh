@@ -1,10 +1,14 @@
 #!/usr/bin/bash
 
 sudo pacman -Syu 
-sudo pacman -S flatpak libappimage wget yajl
-sudo pacman -S gimp discord meld file-roller opera-ffmpeg-codecs bitwarden code inkscape virtualbox qbittorrent strawberry thunderbird totem bpytop firefox gimp pam-u2f rclone gparted 
+sudo pacman -S flatpak libappimage wget yajl pipewire --needed pipewire-pulse pipewire-alsa pipewire-media-session pipewire-jack --noconfirm
+systemctl --user enable pipewire pipewire-pulse pipewire-media-session
+sudo pacman -S gimp discord meld file-roller opera-ffmpeg-codecs bitwarden code inkscape virtualbox qbittorrent strawberry thunderbird totem bpytop firefox gimp pam-u2f rclone gparted --noconfirm
 
-flatpak install com.wps.Office org.gnome.clocks io.mgba.mgba io.github.dosbox-staging --noconfirm 
+flatpak install flathub io.mgba.mGBA --noconfirm
+flatpak install flathub io.github.dosbox-staging --noconfirm
+flatpak install flathub org.gnome.clocks --noconfirm
+flatpak install flathub com.wps.Office --noconfirm
 
 cd /tmp
 git clone https://aur.archlinux.org/aura-bin.git
@@ -12,6 +16,7 @@ cd aura-bin
 makepkg -si
 sudo pacman -Syu
 
+sudo aura -A pipewire-jack-dropin
 sudo aura -A pamac-all --noconfirm
 sudo aura -A timeshift timeshift-autosnap btrfs-autosnap ch.protonmail.protonmail-bridge --noconfirm
 sudo aura -A chrome-gnome-shell debtap loginized masterpdfeditor-free mullvad-vpn virtualbox-ext-oracle --noconfirm
