@@ -13,7 +13,7 @@ makepkg -si
 sudo pacman -Syu
 
 sudo aura -A pamac-all --noconfirm
-sudo aura -A timeshift timeshift-autosnap btrfs-autosnap --noconfirm
+sudo aura -A timeshift timeshift-autosnap btrfs-autosnap ch.protonmail.protonmail-bridge --noconfirm
 sudo aura -A chrome-gnome-shell debtap loginized masterpdfeditor-free mullvad-vpn virtualbox-ext-oracle --noconfirm
 sudo aura -A appimagelauncher --noconfirm
 sudo aura -A -S icedrive-appimage --noconfirm
