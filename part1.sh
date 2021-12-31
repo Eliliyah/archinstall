@@ -23,19 +23,19 @@ loadkeys us
 timedatectl set-ntp true
 
 #Format the drive
-sgdisk --zap-all /dev/sda
+sgdisk --zap-all /dev/nvme0n1
 
 sgdisk --clear \
          --new=1:0:+550MiB --typecode=1:ef00 \
-         --new=2:0:+1GiB   --typecode=2:8200 \
+         --new=2:0:+16GiB   --typecode=2:8200 \
          --new=3:0:0       --typecode=3:8300 \
-           /dev/sda
+           /dev/nvme0n1
 confirm "Did it zap?"
 
 #Partition the drive and create subvolumes
-mkfs.fat -F 32 -n EFI /dev/sda1 
-mkswap -L swap -f /dev/sda2 
-mkfs.btrfs /dev/sda3 --label=system -f
+mkfs.fat -F 32 -n EFI /dev/nvme0n1p1 
+mkswap -L swap -f /dev/nvme0n1p2 
+mkfs.btrfs /dev/nvme0n1p3 --label=system -f
 o=defaults,x-mount.mkdir
 o_btrfs=$o,defaults,noatime,autodefrag,compress=zstd
 mount -t btrfs LABEL=system /mnt 
@@ -49,8 +49,8 @@ mount -t btrfs -o subvol=root,$o_btrfs LABEL=system /mnt
 mount -t btrfs -o subvol=home,$o_btrfs LABEL=system /mnt/home
 mount -t btrfs -o subvol=snapshots,$o_btrfs LABEL=system /mnt/snapshots
 mkdir /mnt/boot
-mkfs.fat -F 32 -n EFI /dev/sda1 
-mount /dev/sda1 /mnt/boot
+mkfs.fat -F 32 -n EFI /dev/nvme0n1p1 
+mount /dev/nvme0n1p1 /mnt/boot
 swapon -L swap
 lsblk
 confirm "Partitions look okay?" 
