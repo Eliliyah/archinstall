@@ -78,10 +78,16 @@ chmod +x strap.sh
 confirm "Do you really think you're going to need that?" 
 
 #Install gnome packages
-pacman -S wayland xorg-xwayland wayland-protocols libva --noconfirm
-pacman -S gdm gnome-shell --noconfirm
-pacman -S gnome-terminal --needed gnome-desktop cinnamon-desktop gnome-control-center gnome-system-monitor gnome-tweaks  gnome-color-manager gnome-usage gnome-screenshot gnome-keyring gnome-nettool gnome-calculator --noconfirm
-pacman -S nemo --noconfirm
+pacman -S wayland xorg-xwayland wayland-protocols sddm libva --noconfirm
+
+pacman -S flatpak libappimage wget yajl pipewire qt6-wayland os-prober --noconfirm
+
+pacman -S pipewire-pulse pipewire-alsa pipewire-media-session pipewire-jack gst-plugin-pipewire gstreamer mediastreamer thermald --noconfirm
+
+pacman -S gnome-shell gnome-terminal --needed gnome-desktop gnome-control-center gnome-system-monitor gnome-tweaks  gnome-color-manager gnome-usage gnome-screenshot gnome-keyring gnome-nettool gnome-calculator gnome-clocks gnome-logs --noconfirm 
+
+pacman -S cinnamon-desktop --needed nemo gthumb pavucontrol systemd-ui alsa-utils alsa-oss aspell-en --noconfirm
+
 chmod +x postinstall.sh
 confirm "Are we gnomed?" 
 
@@ -89,7 +95,10 @@ confirm "Are we gnomed?"
 reflector
 systemctl enable NetworkManager
 systemctl enable dhcpcd
-systemctl enable gdm.service
+systemctl enable sddm.service
+systemctl enable power-profiles-daemon 
+systemctl enable pipewire pipewire-pulse pipewire-media-session
+systemctl enable thermald.service 
 confirm "Did system services enable?" 
 
 #Run mkinitcpio 
@@ -100,5 +109,8 @@ confirm "Did it work?"
 
 #Install grub
 grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB
+grub-mkconfig -o /boot/grub/grub.cfg
+mv /archinstall/EllieOS /usr/share/grub/themes
+echo "GRUB_THEME="/usr/share/grub/themes/EllieOS/theme.txt"">> /etc/default/grub
 grub-mkconfig -o /boot/grub/grub.cfg
 confirm "All good?" 
