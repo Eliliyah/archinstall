@@ -1,5 +1,4 @@
 #Clone and begin
-
 pacman -Sy git
 git clone https://github.com/Eliliyah/archinstall.git
 cd archinstall
@@ -13,6 +12,14 @@ cd archinstall
 chmod +x part2.sh
 ./part2.sh
 
+#Edit Grub
+GRUB_DEFAULT=0
+GRUB_TIMEOUT=5
+GRUB_DISTRIBUTOR="EllieOS"
+GRUB_CMDLINE_LINUX_DEFAULT="loglevel=3"
+GRUB_CMDLINE_LINUX="resume=/dev/nvme0n1p2"
+GRUB_DISABLE_OS_PROBER=false
+
 #Double check everything and reboot
 umount -R /mnt
 reboot
@@ -22,5 +29,3 @@ cd/archinstall
 ./postinstall.sh
 
 Done!
-
-copy theme to /boot/grub/themes
