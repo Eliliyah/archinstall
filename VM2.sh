@@ -63,15 +63,15 @@ ls /etc/pacman.d
 confirm "Did all the files copy successfully?" 
 
 #Install gnome packages
-pacman -S wayland xorg-xwayland wayland-protocols gdm libva --noconfirm
+pacman -S wayland xorg-xwayland wayland-protocols libva --noconfirm
+
+pacman -S plasma plasma-wayland-session kde-applications --noconfirm
 
 pacman -S flatpak libappimage wget yajl pipewire qt6-wayland os-prober --noconfirm
 
 pacman -S pipewire-pulse pipewire-alsa pipewire-media-session pipewire-jack gst-plugin-pipewire gstreamer mediastreamer thermald --noconfirm
 
-pacman -S gnome-shell gnome-terminal --needed gnome-desktop gnome-control-center gnome-system-monitor gnome-tweaks  gnome-color-manager gnome-usage gnome-screenshot gnome-keyring gnome-nettool gnome-calculator gnome-clocks gnome-logs --noconfirm 
-
-pacman -S cinnamon-desktop --needed nemo gthumb pavucontrol systemd-ui alsa-utils alsa-oss aspell-en --noconfirm
+pacman -S pavucontrol systemd-ui alsa-utils alsa-oss aspell-en --noconfirm
 
 chmod +x postinstall.sh
 confirm "Are we gnomed?" 
@@ -80,7 +80,8 @@ confirm "Are we gnomed?"
 reflector
 systemctl enable NetworkManager
 systemctl enable dhcpcd
-systemctl enable gdm.service
+systemctl enable sddm.service
+systemctl enable ssdm.service
 systemctl enable power-profiles-daemon 
 systemctl enable pipewire pipewire-pulse pipewire-media-session
 systemctl enable thermald.service 
