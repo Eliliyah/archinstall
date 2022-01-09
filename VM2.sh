@@ -47,7 +47,8 @@ echo "ellie ALL=(ALL)ALL">> /etc/sudoers
 
 #Install important packages
 pacman -Syu --noconfirm
-pacman -S networkmanager dhclient pacman-contrib curl dhcpcd rsync opera gedit konsole fish --noconfirm
+pacman -S networkmanager dhclient pacman-contrib curl dhcpcd rsync opera gedit fish --noconfirm
+confirm "Did everything install?" 
 
 #Move and copy files
 mkdir /etc/backupfolder
@@ -59,26 +60,38 @@ cp /archinstall/pacman.conf /etc/pacman.conf
 cp /archinstall/endeavouros-mirrorlist /etc/pacman.d/endeavouros-mirrorlist
 cp /archinstall/mkinitcpio.conf /etc/mkinitcpio.conf
 ls /etc/pacman.d
-
+confirm "Did all the files copy successfully?" 
 
 #Install gnome packages
-pacman -S wayland-protocols libva --noconfirm
-pacman -S meson ninja  --noconfirm
-pacman -S nemo --noconfirm
-chmod +x postinstall.sh
+pacman -S wayland xorg-xwayland wayland-protocols gdm libva --noconfirm
 
+pacman -S flatpak libappimage wget yajl pipewire qt6-wayland os-prober --noconfirm
+
+pacman -S pipewire-pulse pipewire-alsa pipewire-media-session pipewire-jack gst-plugin-pipewire gstreamer mediastreamer thermald --noconfirm
+
+pacman -S gnome-shell gnome-terminal --needed gnome-desktop gnome-control-center gnome-system-monitor gnome-tweaks  gnome-color-manager gnome-usage gnome-screenshot gnome-keyring gnome-nettool gnome-calculator gnome-clocks gnome-logs --noconfirm 
+
+pacman -S cinnamon-desktop --needed nemo gthumb pavucontrol systemd-ui alsa-utils alsa-oss aspell-en --noconfirm
+
+chmod +x postinstall.sh
+confirm "Are we gnomed?" 
 
 #Enable system services
 reflector
 systemctl enable NetworkManager
 systemctl enable dhcpcd
-
+systemctl enable gdm.service
+systemctl enable power-profiles-daemon 
+systemctl enable pipewire pipewire-pulse pipewire-media-session
+systemctl enable thermald.service 
+systemctl enable bluetooth.service
+confirm "Did system services enable?" 
 
 #Run mkinitcpio 
 mkinitcpio -p linux
 mkinitcpio -p linux-zen
 mkinitcpio -p linux-lts
-
+confirm "Did it work?" 
 
 #Install grub
 grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB
