@@ -41,14 +41,16 @@ o_btrfs=$o,defaults,noatime,autodefrag,compress=zstd
 mount -t btrfs LABEL=system /mnt 
 btrfs subvolume create /mnt/@
 btrfs subvolume create /mnt/@home
-btrfs subvolume create /mnt/@snapshots
+btrfs subvolume create /mnt/@.snapshots
+btrfs subvolume create /mnt/@var
 umount -R /mnt
 
 #Mount the partitions
 mount -t btrfs -o subvol=@,$o_btrfs LABEL=system /mnt
 mount -t btrfs -o subvol=@home,$o_btrfs LABEL=system /mnt/home
+mount -t btrfs -o subvol=@var,$o_btrfs LABEL=system /mnt/var
 mkdir /mnt/.snapshots
-mount -t btrfs -o subvol=@snapshots,$o_btrfs LABEL=system /mnt/.snapshots
+mount -t btrfs -o subvol=@.snapshots,$o_btrfs LABEL=system /mnt/.snapshots
 mkdir /mnt/boot
 mkfs.fat -F 32 -n EFI /dev/nvme0n1p1 
 mount /dev/nvme0n1p1 /mnt/boot
