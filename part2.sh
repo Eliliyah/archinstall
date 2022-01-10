@@ -48,6 +48,9 @@ passwd
 useradd -m -G wheel -s /bin/bash ellie
 passwd ellie
 echo "ellie ALL=(ALL)ALL">> /etc/sudoers
+echo "%wheel ALL=(ALL) ALL">> /etc/sudoers
+echo "%wheel ALL=(ALL) NOPASSWD: ALL">> /etc/sudoers
+
 confirm "Do you exist now?" 
 
 #Install LTS kernel
@@ -78,13 +81,14 @@ chmod +x strap.sh
 confirm "Do you really think you're going to need that?" 
 
 #Install gnome packages
-pacman -S wayland xorg-xwayland wayland-protocols sddm libva --noconfirm
+pacman -Syu --noconfirm
+pacman -S wayland xorg-xwayland wayland-protocols gdm libva --noconfirm
 
 pacman -S flatpak libappimage wget yajl pipewire qt6-wayland os-prober --noconfirm
 
 pacman -S pipewire-pulse pipewire-alsa pipewire-media-session pipewire-jack gst-plugin-pipewire gstreamer mediastreamer thermald --noconfirm
 
-pacman -S gnome-shell gnome-terminal --needed gnome-desktop gnome-control-center gnome-system-monitor gnome-tweaks  gnome-color-manager gnome-usage gnome-screenshot gnome-keyring gnome-nettool gnome-calculator gnome-clocks gnome-logs --noconfirm 
+pacman -S gnome-shell gnome-terminal --needed gnome-desktop gnome-control-center gnome-system-monitor gnome-tweaks blueberry gnome-color-manager gnome-usage gnome-screenshot gnome-keyring gnome-nettool gnome-calculator gnome-clocks gnome-logs --noconfirm 
 
 pacman -S cinnamon-desktop --needed nemo gthumb pavucontrol systemd-ui alsa-utils alsa-oss aspell-en --noconfirm
 
@@ -92,12 +96,13 @@ chmod +x postinstall.sh
 confirm "Are we gnomed?" 
 
 #Enable system services
-reflector
 systemctl enable NetworkManager
 systemctl enable dhcpcd
-systemctl enable sddm.service
+systemctl enable gdm.service
 systemctl enable power-profiles-daemon 
 systemctl enable pipewire pipewire-pulse pipewire-media-session
+systemctl enable thermald.service 
+systemctl enable bluetooth.services
 systemctl enable thermald.service 
 confirm "Did system services enable?" 
 
