@@ -1,10 +1,26 @@
 #!/usr/bin/bash
 
+confirm() {         
+    while true; do
+        read -p "${1}" yn
+        case $yn in
+            [Yy]* ) $2; break;;
+            [Nn]* ) echo "aborted"; exit;;
+            * ) echo "Please answer yes or no.";;
+        esac
+    done
+}
+example-function() {
+    echo "Excellent. You haven't broken it. Yet."
+}
+
 sudo snapper -c root create-config /
 sudo snapper create
 sudo snapper list
-nano /etc/snapper/configs/root
-
+sudo nano /etc/snapper/configs/root
+systemctl enable snapper-timeline.timer 
+systemctl enable snapper-cleanup.timer
+confirm "Are we snapped?"
 
 sudo pacman -Syu --noconfirm
 sudo pacman -S gimp libreoffice-fresh discord meld file-roller opera-ffmpeg-codecs bitwarden cheese code inkscape virtualbox qbittorrent strawberry thunderbird totem bpytop firefox gimp pam-u2f rclone gparted go meson cmake extra-cmake-modules rust
