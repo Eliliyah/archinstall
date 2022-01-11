@@ -40,15 +40,22 @@ o_btrfs=$o,defaults,noatime,autodefrag,compress=zstd
 mount -t btrfs LABEL=system /mnt 
 btrfs subvolume create /mnt/@
 btrfs subvolume create /mnt/@home
-btrfs subvolume create /mnt/@.snapshots
-btrfs subvolume create /mnt/@var
+btrfs subvolume create /mnt/@root
+btrfs subvolume create /mnt/@srv
+btrfs subvolume create /mnt/@cache
+btrfs subvolume create /mnt/@log
+btrfs subvolume create /mnt/@tmp
 umount -R /mnt
 
 #Mount the partitions
 mount -t btrfs -o subvol=@,$o_btrfs LABEL=system /mnt
 mount -t btrfs -o subvol=@home,$o_btrfs LABEL=system /mnt/home
-mount -t btrfs -o subvol=@.snapshots,$o_btrfs LABEL=system /mnt/.snapshots
-mount -t btrfs -o subvol=@var,$o_btrfs LABEL=system /mnt/var
+mount -t btrfs -o subvol=@root,$o_btrfs LABEL=system /mnt/root
+mount -t btrfs -o subvol=@srv,$o_btrfs LABEL=system /mnt/srv
+mount -t btrfs -o subvol=@cache,$o_btrfs LABEL=system /mnt/cache
+mount -t btrfs -o subvol=@log,$o_btrfs LABEL=system /mnt/log
+mount -t btrfs -o subvol=@tmp,$o_btrfs LABEL=system /mnt/tmp
+
 mkdir /mnt/boot
 mkfs.fat -F 32 -n EFI /dev/sda1 
 mount /dev/sda1 /mnt/boot
@@ -62,7 +69,7 @@ pacstrap /mnt btrfs-progs
 pacstrap /mnt dhcpcd linux-zen base-devel iw gptfdisk zsh terminus-font intel-ucode snapper grub dosfstools man-db man-pages nano usbutils util-linux which neofetch python efibootmgr efitools efivar reflector perl perl-timedate iwd git systemd grub-btrfs xorg xdg-user-dirs 
 
 #Generate fstab
-genfstab -L -p /mnt >> /mnt/etc/fstab
+genfstab -U -p /mnt >> /mnt/etc/fstab
 nano /mnt/etc/fstab
 confirm "Did it generate?"
 arch-chroot /mnt
