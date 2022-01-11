@@ -76,6 +76,13 @@ pacman -S pavucontrol systemd-ui alsa-utils alsa-oss aspell-en --noconfirm
 chmod +x postinstall.sh
 confirm "Are we gnomed?" 
 
+#Enable snapper
+snapper -c root create-config /
+mv /etc/snapper/configs/root /etc/backupfolder
+cp /archinstall/root /etc/snapper/configs/root
+nano /etc/snapper/configs/root
+confirm "Are we snapped?"
+
 #Enable system services
 reflector
 systemctl enable NetworkManager
@@ -89,13 +96,6 @@ systemctl enable pipewire pipewire-pulse pipewire-media-session
 systemctl enable thermald.service 
 systemctl enable bluetooth.service
 confirm "Did system services enable?" 
-
-#Enable snapper
-snapper -c root create-config /
-mv /etc/snapper/configs/root /etc/backupfolder
-cp /archinstall/root /etc/snapper/configs/root
-nano /etc/snapper/configs/root
-confirm "Are we snapped?"
 
 #Run mkinitcpio 
 mkinitcpio -p linux
