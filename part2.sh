@@ -104,6 +104,13 @@ confirm "All good?"
 pacman -S thermald --noconfirm
 systemctl enable thermald.service
 
+#Install blackarch
+cd/tmp
+curl -O https://blackarch.org/strap.sh
+chmod +x strap.sh
+./strap.sh
+confirm "Do you really think you're going to need that?" 
+
 #Enable system services
 systemctl enable NetworkManager
 systemctl enable dhcpcd
