@@ -88,6 +88,10 @@ systemctl enable thermald.service
 systemctl enable bluetooth.service
 confirm "Did system services enable?" 
 
+#Enable snapper
+snapper -c root create-config /
+confirm "Are we snapped?"
+
 #Run mkinitcpio 
 mkinitcpio -p linux
 mkinitcpio -p linux-zen
@@ -96,5 +100,9 @@ confirm "Did it work?"
 
 #Install grub
 grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB
+grub-mkconfig -o /boot/grub/grub.cfg
+mv /archinstall/EllieOS /usr/share/grub/themes
+echo "GRUB_THEME="/usr/share/grub/themes/EllieOS/theme.txt"">> /etc/default/grub
+echo "GRUB_DISABLE_OS_PROBER=false">> /etc/default/grub
 grub-mkconfig -o /boot/grub/grub.cfg
 confirm "All good?" 
