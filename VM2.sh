@@ -90,6 +90,9 @@ confirm "Did system services enable?"
 
 #Enable snapper
 snapper -c root create-config /
+mv /etc/snapper/configs/root /etc/backupfolder
+cp /archinstall/root /etc/snapper/configs/root
+nano /etc/snapper/configs/root
 confirm "Are we snapped?"
 
 #Run mkinitcpio 
