@@ -76,7 +76,7 @@ confirm "Did all the files copy successfully?"
 
 #Install plasma 
 pacman -Syu --noconfirm
-pacman -S plasma --noconfirm
+pacman -S plasma sddm --noconfirm
 pacman -S konsole ark dolphin dolphin-plugins ffmpegthumbs gwenview kalarm kamoso kcalc kdegraphics-thumbnailers kdesdk-thumbnailers kfind kmix ksystemlog ktorrent okular spectacle sweeper systemd-ui aspell-en libappimage os-prober blueberry --noconfirm
 
 pacman -S fish gimp libreoffice-fresh discord meld file-roller opera-ffmpeg-codecs bitwarden code inkscape strawberry thunderbird bpytop firefox pam-u2f rclone gparted --noconfirm
@@ -84,25 +84,24 @@ pacman -S fish gimp libreoffice-fresh discord meld file-roller opera-ffmpeg-code
 #Install virtualbox
 pacman -S virtualbox-ext-vnc virtualbox-guest-iso virtualbox-guest-utils virtualbox-host-dkms virtualbox-sdk --noconfirm
 
-pacman -S pipewire 
+pacman -S pipewire sof-firmware
 
-pacman -S pipewire-pulse pipewire-alsa pipewire-media-session pipewire-jack gst-plugin-pipewire gstreamer mediastreamer pavucontrol alsa-utils alsa-oss
+pacman -S pipewire-alsa pipewire-jack pipewire-media-session pipewire-pulse pipewire-v4l2 pipewire-zeroconf gst-plugin-pipewire pulseaudio-qt alsa-card-profiles jack2 lv2 openal opus --noconfirm
 
 chmod +x postinstall.sh
 confirm "Are we gooeyed?" 
 
 #Install thermald
-pacman -S thermald
+pacman -S thermald --noconfirm
 systemctl enable thermald.service
 
 #Enable system services
 systemctl enable NetworkManager
 systemctl enable dhcpcd
-systemctl enable gdm.service
+systemctl enable sddm.service
 systemctl enable power-profiles-daemon 
-systemctl enable pipewire pipewire-pulse pipewire-media-session
-systemctl enable bluetooth.services
-systemctl enable thermald.service 
+systemctl --user enable pipewire.service pipewire-pulse.service
+systemctl enable bluetooth.service
 confirm "Did system services enable?" 
 
 #Run mkinitcpio 
