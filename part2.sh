@@ -48,8 +48,6 @@ passwd
 useradd -m -G wheel -s /bin/bash ellie
 passwd ellie
 echo "ellie ALL=(ALL)ALL">> /etc/sudoers
-echo "%wheel ALL=(ALL) ALL">> /etc/sudoers
-echo "%wheel ALL=(ALL) NOPASSWD: ALL">> /etc/sudoers
 
 confirm "Do you exist now?" 
 
@@ -73,16 +71,15 @@ cp /archinstall/mkinitcpio.conf /etc/mkinitcpio.conf
 ls /etc/pacman.d
 confirm "Did all the files copy successfully?" 
 
-#Install Extras
-cd/tmp
-curl -O https://blackarch.org/strap.sh
-chmod +x strap.sh
-./strap.sh
-confirm "Do you really think you're going to need that?" 
-
-#Install gnome packages
+#Install plasma packages
 pacman -Syu --noconfirm
-pacman -S wayland xorg-xwayland wayland-protocols gdm libva --noconfirm
+
+pacman -S plasma 
+
+
+
+
+--noconfirm
 
 pacman -S flatpak libappimage wget yajl pipewire qt6-wayland os-prober --noconfirm
 
