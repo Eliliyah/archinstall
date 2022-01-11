@@ -48,27 +48,13 @@ passwd
 useradd -m -G wheel -s /bin/bash ellie
 passwd ellie
 echo "ellie ALL=(ALL)ALL">> /etc/sudoers
-
 confirm "Do you exist now?" 
-
-#Install LTS kernel
-pacman -S linux-lts --noconfirm
-
-#Install important packages
-pacman -Syu --noconfirm
-pacman -S networkmanager dhclient pacman-contrib dhcpcd rsync opera --noconfirm
-
-#Install build tools
-pacman -S go meson cmake extra-cmake-modules rust flatpak snapd yajl wget curl --noconfirm
-confirm "Did everything install?" 
 
 #Move and copy files
 chmod +x postinstall.sh
 mkdir /etc/backupfolder
-
 mv /etc/mkinitcpio.conf /etc/backupfolder
 cp /archinstall/mkinitcpio.conf /etc/mkinitcpio.conf
-
 mv /etc/pacman.conf /etc/backupfolder
 cp /archinstall/pacman.conf /etc/pacman.conf
 cp /archinstall/endeavouros-mirrorlist /etc/pacman.d/endeavouros-mirrorlist
@@ -80,6 +66,17 @@ confirm "Did all the files copy successfully?"
 #Refresh mirrors
 reflector
 confirm "Mirrors okay?"
+
+#Install LTS kernel
+pacman -S linux-lts --noconfirm
+
+#Install important packages
+pacman -Syu --noconfirm
+pacman -S networkmanager dhclient pacman-contrib dhcpcd rsync opera --noconfirm
+
+#Install build tools
+pacman -S go meson cmake extra-cmake-modules rust flatpak snapd yajl wget curl --noconfirm
+confirm "Did everything install?" 
 
 #Install plasma 
 pacman -Syu --noconfirm
