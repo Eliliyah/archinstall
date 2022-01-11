@@ -56,41 +56,44 @@ pacman -S linux-lts --noconfirm
 
 #Install important packages
 pacman -Syu --noconfirm
-pacman -S networkmanager dhclient pacman-contrib curl dhcpcd rsync opera gedit fish --noconfirm
+pacman -S networkmanager dhclient pacman-contrib dhcpcd rsync opera --noconfirm
+
+#Install build tools
+pacman -S go meson cmake extra-cmake-modules rust flatpak snapd yajl wget curl --noconfirm
 confirm "Did everything install?" 
 
 #Move and copy files
 mkdir /etc/backupfolder
-mv /etc/pacman.d/mirrorlist /etc/backupfolder
-mv /etc/pacman.conf /etc/backupfolder
+#mv /etc/pacman.d/mirrorlist /etc/backupfolder
+#mv /etc/pacman.conf /etc/backupfolder
 mv /etc/mkinitcpio.conf /etc/backupfolder
-cp /archinstall/mirrorlist /etc/pacman.d/mirrorlist
-cp /archinstall/pacman.conf /etc/pacman.conf
-cp /archinstall/endeavouros-mirrorlist /etc/pacman.d/endeavouros-mirrorlist
+#cp /archinstall/mirrorlist /etc/pacman.d/mirrorlist
+#cp /archinstall/pacman.conf /etc/pacman.conf
+#cp /archinstall/endeavouros-mirrorlist /etc/pacman.d/endeavouros-mirrorlist
 cp /archinstall/mkinitcpio.conf /etc/mkinitcpio.conf
-ls /etc/pacman.d
+ls /etc/backupfolder
 confirm "Did all the files copy successfully?" 
 
-#Install plasma packages
+#Install plasma 
 pacman -Syu --noconfirm
+pacman -S plasma --noconfirm
+pacman -S konsole ark dolphin dolphin-plugins ffmpegthumbs gwenview kalarm kamoso kcalc kdegraphics-thumbnailers kdesdk-thumbnailers kfind kmix ksystemlog ktorrent okular spectacle sweeper systemd-ui aspell-en libappimage os-prober blueberry --noconfirm
 
-pacman -S plasma 
+pacman -S fish gimp libreoffice-fresh discord meld file-roller opera-ffmpeg-codecs bitwarden code inkscape strawberry thunderbird bpytop firefox pam-u2f rclone gparted --noconfirm
 
+#Install virtualbox
+pacman -S virtualbox-ext-vnc virtualbox-guest-iso virtualbox-guest-utils virtualbox-host-dkms virtualbox-sdk --noconfirm
 
+pacman -S pipewire 
 
-
---noconfirm
-
-pacman -S flatpak libappimage wget yajl pipewire qt6-wayland os-prober --noconfirm
-
-pacman -S pipewire-pulse pipewire-alsa pipewire-media-session pipewire-jack gst-plugin-pipewire gstreamer mediastreamer thermald --noconfirm
-
-pacman -S gnome-shell gnome-terminal --needed gnome-desktop gnome-control-center gnome-system-monitor gnome-tweaks blueberry gnome-color-manager gnome-usage gnome-screenshot gnome-keyring gnome-nettool gnome-calculator gnome-clocks gnome-logs --noconfirm 
-
-pacman -S cinnamon-desktop --needed nemo gthumb pavucontrol systemd-ui alsa-utils alsa-oss aspell-en --noconfirm
+pacman -S pipewire-pulse pipewire-alsa pipewire-media-session pipewire-jack gst-plugin-pipewire gstreamer mediastreamer pavucontrol alsa-utils alsa-oss
 
 chmod +x postinstall.sh
-confirm "Are we gnomed?" 
+confirm "Are we gooeyed?" 
+
+#Install thermald
+pacman -S thermald
+systemctl enable thermald.service
 
 #Enable system services
 systemctl enable NetworkManager
@@ -98,7 +101,6 @@ systemctl enable dhcpcd
 systemctl enable gdm.service
 systemctl enable power-profiles-daemon 
 systemctl enable pipewire pipewire-pulse pipewire-media-session
-systemctl enable thermald.service 
 systemctl enable bluetooth.services
 systemctl enable thermald.service 
 confirm "Did system services enable?" 
