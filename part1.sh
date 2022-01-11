@@ -69,7 +69,7 @@ pacstrap /mnt dhcpcd linux-zen linux-zen-headers base-devel iw gptfdisk zsh term
 confirm "Did it work?"
 
 #Generate fstab
-genfstab -L -p /mnt >> /mnt/etc/fstab
+genfstab -U -p /mnt >> /mnt/etc/fstab
 nano /mnt/etc/fstab
 confirm "Did it generate?"
 arch-chroot /mnt
