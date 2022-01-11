@@ -22,13 +22,6 @@ systemctl enable snapper-timeline.timer
 systemctl enable snapper-cleanup.timer
 confirm "Are we snapped?"
 
-#Install Extras
-cd/tmp
-curl -O https://blackarch.org/strap.sh
-chmod +x strap.sh
-./strap.sh
-confirm "Do you really think you're going to need that?" 
-
 sudo pacman -Syu --noconfirm
 
 flatpak install flathub mGBA dosbox-staging 
@@ -39,7 +32,8 @@ cd aura-bin
 makepkg -si
 sudo pacman -Syu
 
-sudo aura -A pipewire-support pipewire-jack-dropin
+sudo aura -S pipewire-support --noconfirm
+sudo aura -A pipewire-jack-dropin --noconfirm
 sudo aura -A pamac-all --noconfirm
 sudo aura -A protonmail-bridge stacer-bin --noconfirm
 sudo aura -A debtap masterpdfeditor-free mullvad-vpn virtualbox-ext-oracle --noconfirm
