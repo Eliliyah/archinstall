@@ -78,9 +78,13 @@ pacman -S networkmanager dhclient pacman-contrib dhcpcd rsync opera --noconfirm
 pacman -S go meson cmake extra-cmake-modules rust flatpak snapd yajl wget curl --noconfirm
 confirm "Did everything install?" 
 
+#Install aur helper
+pacman -S aura --noconfirm
+
 #Install plasma 
-pacman -Syu --noconfirm
-pacman -S plasma sddm --noconfirm
+pacman -S plasma sddm-kcm-git --noconfirm
+pacman -S plasma-desktop-git plasma-workspace-git --noconfirm
+plasma-meta-git --noconfirm
 confirm "All good?" 
 
 #Instal optional applications
@@ -92,7 +96,7 @@ confirm "All good?"
 
 #Install audio applications
 pacman -S pipewire sof-firmware
-pacman -S pipewire-alsa pipewire-jack pipewire-media-session pipewire-pulse pipewire-v4l2 pipewire-zeroconf gst-plugin-pipewire pulseaudio-qt alsa-card-profiles jack2 lv2 openal opus bluez --noconfirm
+pacman -S pipewire-alsa pipewire-jack pipewire-media-session pipewire-pulse pipewire-v4l2 pipewire-zeroconf gst-plugin-pipewire pulseaudio-qt alsa-card-profiles jack2 lv2 openal opus bluez
 pacman -S bluedevil --noconfirm
 confirm "All good?" 
 
