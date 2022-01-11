@@ -63,6 +63,7 @@ pacman -S go meson cmake extra-cmake-modules rust flatpak snapd yajl wget curl -
 confirm "Did everything install?" 
 
 #Move and copy files
+chmod +x postinstall.sh
 mkdir /etc/backupfolder
 #mv /etc/pacman.d/mirrorlist /etc/backupfolder
 #mv /etc/pacman.conf /etc/backupfolder
@@ -77,19 +78,24 @@ confirm "Did all the files copy successfully?"
 #Install plasma 
 pacman -Syu --noconfirm
 pacman -S plasma sddm --noconfirm
-pacman -S konsole ark dolphin dolphin-plugins ffmpegthumbs gwenview kalarm kamoso kcalc kdegraphics-thumbnailers kdesdk-thumbnailers kfind kmix ksystemlog ktorrent okular spectacle sweeper systemd-ui aspell-en libappimage os-prober blueberry --noconfirm
+confirm "All good?" 
+
+#Instal optional applications
+pacman -S konsole ark dolphin dolphin-plugins ffmpegthumbs gwenview kalarm kamoso kcalc kdegraphics-thumbnailers kdesdk-thumbnailers kfind kmix ksystemlog ktorrent okular spectacle sweeper systemd-ui aspell-en libappimage os-prober --noconfirm
+confirm "All good?" 
 
 pacman -S fish gimp libreoffice-fresh discord meld file-roller opera-ffmpeg-codecs bitwarden code inkscape strawberry thunderbird bpytop firefox pam-u2f rclone gparted --noconfirm
+confirm "All good?" 
+
+#Install audio applications
+pacman -S pipewire sof-firmware
+pacman -S pipewire-alsa pipewire-jack pipewire-media-session pipewire-pulse pipewire-v4l2 pipewire-zeroconf gst-plugin-pipewire pulseaudio-qt alsa-card-profiles jack2 lv2 openal opus bluez --noconfirm
+pacman -S bluedevil --noconfirm
+confirm "All good?" 
 
 #Install virtualbox
 pacman -S virtualbox-ext-vnc virtualbox-guest-iso virtualbox-guest-utils virtualbox-host-dkms virtualbox-sdk --noconfirm
-
-pacman -S pipewire sof-firmware
-
-pacman -S pipewire-alsa pipewire-jack pipewire-media-session pipewire-pulse pipewire-v4l2 pipewire-zeroconf gst-plugin-pipewire pulseaudio-qt alsa-card-profiles jack2 lv2 openal opus --noconfirm
-
-chmod +x postinstall.sh
-confirm "Are we gooeyed?" 
+confirm "All good?" 
 
 #Install thermald
 pacman -S thermald --noconfirm
@@ -116,4 +122,5 @@ grub-mkconfig -o /boot/grub/grub.cfg
 mv /archinstall/EllieOS /usr/share/grub/themes
 echo "GRUB_THEME="/usr/share/grub/themes/EllieOS/theme.txt"">> /etc/default/grub
 grub-mkconfig -o /boot/grub/grub.cfg
+nano /etc/default/grub
 confirm "All good?" 
