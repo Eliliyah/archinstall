@@ -22,6 +22,13 @@ systemctl enable snapper-timeline.timer
 systemctl enable snapper-cleanup.timer
 confirm "Are we snapped?"
 
+#Install Extras
+cd/tmp
+curl -O https://blackarch.org/strap.sh
+chmod +x strap.sh
+./strap.sh
+confirm "Do you really think you're going to need that?" 
+
 sudo pacman -Syu --noconfirm
 sudo pacman -S gimp libreoffice-fresh discord meld file-roller opera-ffmpeg-codecs bitwarden cheese code inkscape virtualbox qbittorrent strawberry thunderbird totem bpytop firefox gimp pam-u2f rclone gparted go meson cmake extra-cmake-modules rust
 sudo pacman -S virtualbox-ext-vnc virtualbox-guest-iso virtualbox-guest-utils virtualbox-host-dkms virtualbox-sdk --noconfirm
