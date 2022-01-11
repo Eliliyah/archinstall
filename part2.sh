@@ -65,15 +65,21 @@ confirm "Did everything install?"
 #Move and copy files
 chmod +x postinstall.sh
 mkdir /etc/backupfolder
-#mv /etc/pacman.d/mirrorlist /etc/backupfolder
-#mv /etc/pacman.conf /etc/backupfolder
+
 mv /etc/mkinitcpio.conf /etc/backupfolder
-#cp /archinstall/mirrorlist /etc/pacman.d/mirrorlist
-#cp /archinstall/pacman.conf /etc/pacman.conf
-#cp /archinstall/endeavouros-mirrorlist /etc/pacman.d/endeavouros-mirrorlist
 cp /archinstall/mkinitcpio.conf /etc/mkinitcpio.conf
+
+mv /etc/pacman.conf /etc/backupfolder
+cp /archinstall/pacman.conf /etc/pacman.conf
+cp /archinstall/endeavouros-mirrorlist /etc/pacman.d/endeavouros-mirrorlist
+cp /archinstall/echaotic-mirrorlist /etc/pacman.d/chaotic-mirrorlist
 ls /etc/backupfolder
+ls /etc/pacman.d
 confirm "Did all the files copy successfully?" 
+
+#Refresh mirrors
+reflector
+confirm "Mirrors okay?"
 
 #Install plasma 
 pacman -Syu --noconfirm
