@@ -81,6 +81,8 @@ reflector
 systemctl enable NetworkManager
 systemctl enable dhcpcd
 systemctl enable sddm.service
+systemctl enable snapper-timeline.timer 
+systemctl enable snapper-cleanup.timer
 systemctl enable ssdm.service
 systemctl enable power-profiles-daemon 
 systemctl enable pipewire pipewire-pulse pipewire-media-session
