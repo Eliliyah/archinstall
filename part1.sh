@@ -39,20 +39,24 @@ mkfs.btrfs /dev/nvme0n1p3 --label=system -f
 o=defaults,x-mount.mkdir
 o_btrfs=$o,defaults,noatime,autodefrag,compress=zstd
 mount -t btrfs LABEL=system /mnt 
+mkdir /mnt/boot
 btrfs subvolume create /mnt/@
 btrfs subvolume create /mnt/@home
-btrfs subvolume create /mnt/@.snapshots
-btrfs subvolume create /mnt/@var
+btrfs subvolume create /mnt/@root
+btrfs subvolume create /mnt/@srv
+btrfs subvolume create /mnt/@cache
+btrfs subvolume create /mnt/@log
+btrfs subvolume create /mnt/@tmp
 umount -R /mnt
 
 #Mount the partitions
 mount -t btrfs -o subvol=@,$o_btrfs LABEL=system /mnt
 mount -t btrfs -o subvol=@home,$o_btrfs LABEL=system /mnt/home
-mount -t btrfs -o subvol=@var,$o_btrfs LABEL=system /mnt/var
-mkdir /mnt/.snapshots
-mount -t btrfs -o subvol=@.snapshots,$o_btrfs LABEL=system /mnt/.snapshots
-mkdir /mnt/boot
-mkfs.fat -F 32 -n EFI /dev/nvme0n1p1 
+mount -t btrfs -o subvol=@root,$o_btrfs LABEL=system /mnt/root
+mount -t btrfs -o subvol=@srv,$o_btrfs LABEL=system /mnt/srv
+mount -t btrfs -o subvol=@cache,$o_btrfs LABEL=system /mnt/cache
+mount -t btrfs -o subvol=@log,$o_btrfs LABEL=system /mnt/log
+mount -t btrfs -o subvol=@tmp,$o_btrfs LABEL=system /mnt/tmp
 mount /dev/nvme0n1p1 /mnt/boot
 swapon -L swap
 lsblk
