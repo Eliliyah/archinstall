@@ -50,6 +50,9 @@ passwd ellie
 echo "ellie ALL=(ALL)ALL">> /etc/sudoers
 confirm "Do you exist now?" 
 
+#Enable SysRq key
+echo "kernel.sysrq = 1" >> /etc/sysctl.d/99-sysctl.conf
+
 #Move and copy files
 chmod +x postinstall.sh
 mkdir /etc/backupfolder
