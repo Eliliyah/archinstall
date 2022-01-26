@@ -74,4 +74,3 @@ confirm "Did it work?"
 genfstab -U -p /mnt >> /mnt/etc/fstab
 nano /mnt/etc/fstab
 confirm "Did it generate?"
-done
