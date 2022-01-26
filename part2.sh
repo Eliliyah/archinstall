@@ -76,6 +76,7 @@ nano /etc/mkinitcpio.conf
 confirm "Everything look right?"
 
 #Refresh mirrors
+pacman-key --init
 reflector
 confirm "Mirrors okay?"
 
@@ -88,7 +89,7 @@ pacman -S go go-tools perl meson cmake extra-cmake-modules rust flatpak snapd ya
 confirm "All good?" 
 
 #Install aur helper
-pacman -S aura --noconfirm
+pacman -S aura
 confirm "All good?" 
 
 #Install plasma 
