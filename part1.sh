@@ -39,7 +39,6 @@ mkfs.btrfs /dev/nvme0n1p3 --label=system -f
 o=defaults,x-mount.mkdir
 o_btrfs=$o,defaults,noatime,autodefrag,compress=lzo
 mount -t btrfs LABEL=system /mnt 
-mkdir /mnt/boot
 btrfs subvolume create /mnt/@
 btrfs subvolume create /mnt/@home
 btrfs subvolume create /mnt/@root
@@ -59,6 +58,7 @@ mount -t btrfs -o subvol=@cache,$o_btrfs LABEL=system /mnt/cache
 mount -t btrfs -o subvol=@log,$o_btrfs LABEL=system /mnt/log
 mount -t btrfs -o subvol=@tmp,$o_btrfs LABEL=system /mnt/tmp
 mount -t btrfs -o subvol=@var,$o_btrfs LABEL=system /mnt/var
+mkdir /mnt/boot
 mount /dev/nvme0n1p1 /mnt/boot
 swapon -L swap
 lsblk
