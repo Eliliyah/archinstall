@@ -151,5 +151,3 @@ echo "GRUB_THEME="/usr/share/grub/themes/EllieOS/theme.txt"">> /etc/default/grub
 grub-mkconfig -o /boot/grub/grub.cfg
 nano /etc/default/grub
 confirm "All good?" 
-
-done
