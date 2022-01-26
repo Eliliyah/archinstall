@@ -14,6 +14,9 @@ example-function() {
     echo "Excellent. You haven't broken it. Yet."
 }
 
+#Install aur helper
+pacman -S aura
+confirm "All good?" 
 
 #Install AUR packages
 sudo aura -A pamac-all --noconfirm
