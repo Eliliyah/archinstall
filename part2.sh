@@ -43,6 +43,7 @@ confirm "Did the time set correctly?"
 
 #Set the root password
 passwd
+EDITOR=nano visudo
 
 #add yourself as a user
 useradd -m -G wheel -s /bin/bash ellie
@@ -64,6 +65,11 @@ cp /archinstall/endeavouros-mirrorlist /etc/pacman.d/endeavouros-mirrorlist
 ls /etc/backupfolder
 ls /etc/pacman.d
 confirm "Did all the files copy successfully?" 
+
+#check configs
+nano /etc/pacman.conf
+nano /etc/mkinitcpio.conf
+confirm "Everything look right?"
 
 #Refresh mirrors
 reflector
