@@ -59,12 +59,8 @@ mkdir /etc/backupfolder
 mv /etc/mkinitcpio.conf /etc/backupfolder
 cp /archinstall/mkinitcpio.conf /etc/mkinitcpio.conf
 echo "
-[endeavouros]
-Include = /etc/pacman.d/endeavouros-mirrorlist
-
 [chaotic-aur]
 Include = /etc/pacman.d/chaotic-mirrorlist">> /etc/pacman.conf
-cp /archinstall/endeavouros-mirrorlist /etc/pacman.d/endeavouros-mirrorlist
 cp /archinstall/chaotic-mirrorlist /etc/pacman.d/chaotic-mirrorlist
 ls /etc/backupfolder
 ls /etc/pacman.d
@@ -78,6 +74,7 @@ confirm "Everything look right?"
 #Refresh mirrors
 pacman -Syu
 pacman-key --init
+pacman-key -u
 reflector
 confirm "Mirrors okay?"
 
