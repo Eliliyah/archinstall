@@ -23,20 +23,19 @@ loadkeys us
 timedatectl set-ntp true
 
 #Format the drive
-sgdisk --zap-all /dev/nvme0n1
+sgdisk --zap-all /dev/sda
 
 sgdisk --clear \
-         --new=1:0:+3GiB --typecode=1:ef00 \
-         --new=2:0:+32GiB   --typecode=2:8200 \
+         --new=1:0:+500MiB --typecode=1:ef00 \
+         --new=2:0:+1GiB   --typecode=2:8200 \
          --new=3:0:0       --typecode=3:8300 \
-           /dev/nvme0n1
+           /dev/sda
 confirm "Did it zap?"
 
 #Partition the drive and create subvolumes
-mkfs.fat -F 32 -n EFI /dev/nvme0n1p1 
-mkswap -L swap -f /dev/nvme0n1p2 
-mkswap -L zram0 /dev/zram0
-mkfs.btrfs /dev/nvme0n1p3 --label=system -f
+mkfs.fat -F 32 -n EFI /dev/sda1 
+mkswap -L swap -f /dev/sda2 
+mkfs.btrfs /dev/sda3 --label=system -f
 o=defaults,x-mount.mkdir
 o_btrfs=$o,defaults,noatime,autodefrag,compress=lz4
 mount -t btrfs LABEL=system /mnt 
@@ -60,8 +59,7 @@ mount -t btrfs -o subvol=@cache,$o_btrfs LABEL=system /mnt/cache
 mount -t btrfs -o subvol=@log,$o_btrfs LABEL=system /mnt/log
 mount -t btrfs -o subvol=@tmp,$o_btrfs LABEL=system /mnt/tmp
 mount -t btrfs -o subvol=@var,$o_btrfs LABEL=system /mnt/var
-mount /dev/nvme0n1p1 /mnt/boot
-swapon --priority 100 /dev/zram0
+mount /dev/sda1 /mnt/boot
 swapon -L swap
 lsblk
 confirm "Partitions look okay?" 
