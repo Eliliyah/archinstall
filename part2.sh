@@ -47,7 +47,6 @@ passwd
 #add yourself as a user
 useradd -m -G wheel -s /bin/bash ellie
 passwd ellie
-echo "ellie ALL=(ALL)ALL">> /etc/sudoers
 confirm "Do you exist now?" 
 
 #Enable SysRq key
@@ -61,7 +60,7 @@ cp /archinstall/mkinitcpio.conf /etc/mkinitcpio.conf
 mv /etc/pacman.conf /etc/backupfolder
 cp /archinstall/pacman.conf /etc/pacman.conf
 cp /archinstall/endeavouros-mirrorlist /etc/pacman.d/endeavouros-mirrorlist
-cp /archinstall/echaotic-mirrorlist /etc/pacman.d/chaotic-mirrorlist
+# cp /archinstall/chaotic-mirrorlist /etc/pacman.d/chaotic-mirrorlist
 ls /etc/backupfolder
 ls /etc/pacman.d
 confirm "Did all the files copy successfully?" 
@@ -70,46 +69,40 @@ confirm "Did all the files copy successfully?"
 reflector
 confirm "Mirrors okay?"
 
-#Install LTS kernel
-pacman -S linux-lts --noconfirm
-
 #Install important packages
 pacman -Syu --noconfirm
-pacman -S networkmanager dhclient pacman-contrib dhcpcd rsync opera --noconfirm
+pacman -S networkmanager pacman-contrib rsync --noconfirm
 
 #Install build tools
-pacman -S go meson cmake extra-cmake-modules rust flatpak snapd yajl wget curl --noconfirm
+pacman -S go go-tools perl meson cmake extra-cmake-modules rust flatpak snapd yajl wget curl --noconfirm
 confirm "Did everything install?" 
 
 #Install aur helper
 pacman -S aura --noconfirm
 
 #Install plasma 
-pacman -S plasma sddm-kcm-git --noconfirm
-pacman -S plasma-desktop-git plasma-workspace-git --noconfirm
-plasma-meta-git --noconfirm
+pacman -S ark audiocd-kio breeze-gtk dolphin elisa gwenview kdeconnect qt5-base pass kde-gtk-config khotkeys kinfocenter kinit kio-fuse konsole kscreen kwallet-pam okular plasma-desktop plasma-disks plasma-nm plasma-pa powerdevil sddm-kcm solid spectacle xsettingsd power-profiles-daemon --noconfirm
 confirm "All good?" 
 
 #Instal optional applications
-pacman -S konsole ark dolphin dolphin-plugins ffmpegthumbs gwenview kalarm kamoso kcalc kdegraphics-thumbnailers kdesdk-thumbnailers kfind kmix ksystemlog ktorrent okular spectacle sweeper systemd-ui aspell-en libappimage os-prober --noconfirm
+pacman -S dolphin-plugins ffmpegthumbs kalarm kamoso kcalc kdegraphics-thumbnailers kdesdk-thumbnailers kfind kmix ksystemlog ktorrent aspell-en libappimage os-prober pacmanlogviewer oxygen masterpdfeditor-free latte-dock kvantum-theme-sweet-git ksystemstats jamesdsp intel-gpu-tools intel-media-driver haskell-emojis garuda-starship-prompt firefox-extension-plasma-integration discover android-sdk-cmdline-tools-latest android-sdk-platform-tools --noconfirm
 confirm "All good?" 
 
-pacman -S fish gimp libreoffice-fresh discord meld file-roller opera-ffmpeg-codecs bitwarden code inkscape strawberry thunderbird bpytop firefox pam-u2f rclone gparted --noconfirm
+pacman -S fish fish-autopair gimp libreoffice-fresh discord meld file-roller vivaldi vivaldi-ffmpeg-codecs bitwarden code inkscape clementine bpytop firefox pam-u2f rclone gparted starship --noconfirm
 confirm "All good?" 
 
 #Install audio applications
 pacman -S pipewire sof-firmware
-pacman -S pipewire-alsa pipewire-jack pipewire-media-session pipewire-pulse pipewire-v4l2 pipewire-zeroconf gst-plugin-pipewire pulseaudio-qt alsa-card-profiles jack2 lv2 openal opus bluez
-pacman -S bluedevil --noconfirm
+pacman -S pipewire-alsa pipewire-jack pipewire-media-session pipewire-pulse pipewire-v4l2 pipewire-zeroconf gst-plugin-pipewire alsa-card-profiles jack2 lv2 openal opus bluez bluedevil --noconfirm
 confirm "All good?" 
 
 #Install virtualbox
 pacman -S virtualbox-ext-vnc virtualbox-guest-iso virtualbox-guest-utils virtualbox-host-dkms virtualbox-sdk --noconfirm
-confirm "All good?" 
 
-#Install thermald
-pacman -S thermald --noconfirm
-systemctl enable thermald.service
+#Install AUR packages
+aura -A pamac-all
+aura -A stacer-bin chromium-extension-plasma-integration intel-cpu-runtime onevpl-intel-gpu hunspell-en-med-glut-git --noconfirm 
+confirm "All good?" 
 
 #Install blackarch
 cd/tmp
@@ -123,14 +116,13 @@ systemctl enable NetworkManager
 systemctl enable dhcpcd
 systemctl enable sddm.service
 systemctl enable power-profiles-daemon 
-systemctl --user enable pipewire.service pipewire-pulse.service
+systemctl --user enable pipewire.service pipewire-pulse.service pipewire-media-session.service 
 systemctl enable bluetooth.service
 confirm "Did system services enable?" 
 
 #Run mkinitcpio 
 mkinitcpio -p linux
 mkinitcpio -p linux-zen
-mkinitcpio -p linux-lts
 confirm "Did it work?" 
 
 #Install grub
@@ -141,3 +133,5 @@ echo "GRUB_THEME="/usr/share/grub/themes/EllieOS/theme.txt"">> /etc/default/grub
 grub-mkconfig -o /boot/grub/grub.cfg
 nano /etc/default/grub
 confirm "All good?" 
+
+done
