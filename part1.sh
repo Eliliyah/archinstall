@@ -66,7 +66,8 @@ confirm "Partitions look okay?"
 
 #Install the base system
 pacstrap /mnt base linux linux-firmware linux-atm linux-headers systemd --noconfirm
-pacstrap /mnt nano git base-devel linux-zen linux-zen-headers
+pacstrap /mnt nano git linux-zen linux-zen-headers reflector --noconfirm
+pacstrap /mnt base-devel
 confirm "Did it work?"
 
 #Generate fstab
