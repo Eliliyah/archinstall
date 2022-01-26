@@ -105,16 +105,11 @@ confirm "All good?"
 
 #Install audio applications
 pacman -S pipewire sof-firmware
-pacman -S pipewire-alsa pipewire-jack pipewire-media-session pipewire-pulse pipewire-v4l2 pipewire-zeroconf gst-plugin-pipewire alsa-card-profiles jack2 lv2 openal opus bluez bluedevil --noconfirm
+pacman -S pipewire-alsa pipewire-jack pipewire-media-session pipewire-pulse pipewire-v4l2 pipewire-zeroconf gst-plugin-pipewire alsa-card-profiles lv2 openal opus bluez bluedevil --noconfirm
 confirm "All good?" 
 
 #Install virtualbox
 pacman -S virtualbox-ext-vnc virtualbox-guest-iso virtualbox-guest-utils virtualbox-host-dkms virtualbox-sdk --noconfirm
-confirm "All good?" 
-
-#Install AUR packages
-aura -A pamac-all
-aura -A stacer-bin chromium-extension-plasma-integration intel-cpu-runtime onevpl-intel-gpu hunspell-en-med-glut-git --noconfirm 
 confirm "All good?" 
 
 #Install zram
@@ -137,10 +132,10 @@ confirm "Do you really think you're going to need that?"
 
 #Enable system services
 systemctl enable NetworkManager
-systemctl enable dhcpcd
 systemctl enable sddm.service
 systemctl enable power-profiles-daemon 
-systemctl --user enable pipewire.service pipewire-pulse.service pipewire-media-session.service 
+systemctl enable pipewire.service pipewire-media-session.service 
+systemctl --user enable pipewire.service pipewire-media-session.service 
 systemctl enable bluetooth.service
 confirm "Did system services enable?" 
 
