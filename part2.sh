@@ -53,15 +53,22 @@ confirm "Do you exist now?"
 #Enable SysRq key
 echo "kernel.sysrq = 1" >> /etc/sysctl.d/99-sysctl.conf
 
+#Install chaotic AUR keyring
+pacman-key --init
+pacman-key --recv-key FBA220DFC880C036 --keyserver keyserver.ubuntu.com
+pacman-key --lsign-key FBA220DFC880C036
+pacman -U 'https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-keyring.pkg.tar.zst' 'https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-mirrorlist.pkg.tar.zst'
+echo "
+[chaotic-aur]
+Include = /etc/pacman.d/chaotic-mirrorlist">> /etc/pacman.conf
+pacman-key -u
+pacman -Syu
+
 #Move and copy files
 chmod +x postinstall.sh
 mkdir /etc/backupfolder
 mv /etc/mkinitcpio.conf /etc/backupfolder
 cp /archinstall/mkinitcpio.conf /etc/mkinitcpio.conf
-echo "
-[chaotic-aur]
-Include = /etc/pacman.d/chaotic-mirrorlist">> /etc/pacman.conf
-cp /archinstall/chaotic-mirrorlist /etc/pacman.d/chaotic-mirrorlist
 ls /etc/backupfolder
 ls /etc/pacman.d
 confirm "Did all the files copy successfully?" 
@@ -73,8 +80,6 @@ confirm "Everything look right?"
 
 #Refresh mirrors
 pacman -Syu
-pacman-key --init
-pacman-key -u
 reflector
 confirm "Mirrors okay?"
 
