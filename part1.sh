@@ -37,7 +37,7 @@ mkfs.fat -F 32 -n EFI /dev/nvme0n1p1
 mkswap -L swap -f /dev/nvme0n1p2 
 mkfs.btrfs /dev/nvme0n1p3 --label=system -f
 o=defaults,x-mount.mkdir
-o_btrfs=$o,defaults,noatime,autodefrag,compress=lz4
+o_btrfs=$o,defaults,noatime,autodefrag,compress=lzo
 mount -t btrfs LABEL=system /mnt 
 mkdir /mnt/boot
 btrfs subvolume create /mnt/@
