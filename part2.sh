@@ -60,7 +60,7 @@ cp /archinstall/mkinitcpio.conf /etc/mkinitcpio.conf
 mv /etc/pacman.conf /etc/backupfolder
 cp /archinstall/pacman.conf /etc/pacman.conf
 cp /archinstall/endeavouros-mirrorlist /etc/pacman.d/endeavouros-mirrorlist
-# cp /archinstall/chaotic-mirrorlist /etc/pacman.d/chaotic-mirrorlist
+#cp /archinstall/chaotic-mirrorlist /etc/pacman.d/chaotic-mirrorlist
 ls /etc/backupfolder
 ls /etc/pacman.d
 confirm "Did all the files copy successfully?" 
@@ -72,13 +72,15 @@ confirm "Mirrors okay?"
 #Install important packages
 pacman -Syu --noconfirm
 pacman -S networkmanager pacman-contrib rsync --noconfirm
+confirm "All good?" 
 
 #Install build tools
 pacman -S go go-tools perl meson cmake extra-cmake-modules rust flatpak snapd yajl wget curl --noconfirm
-confirm "Did everything install?" 
+confirm "All good?" 
 
 #Install aur helper
 pacman -S aura --noconfirm
+confirm "All good?" 
 
 #Install plasma 
 pacman -S ark audiocd-kio breeze-gtk dolphin elisa gwenview kdeconnect qt5-base pass kde-gtk-config khotkeys kinfocenter kinit kio-fuse konsole kscreen kwallet-pam okular plasma-desktop plasma-disks plasma-nm plasma-pa powerdevil sddm-kcm solid spectacle xsettingsd power-profiles-daemon --noconfirm
@@ -98,6 +100,7 @@ confirm "All good?"
 
 #Install virtualbox
 pacman -S virtualbox-ext-vnc virtualbox-guest-iso virtualbox-guest-utils virtualbox-host-dkms virtualbox-sdk --noconfirm
+confirm "All good?" 
 
 #Install AUR packages
 aura -A pamac-all
