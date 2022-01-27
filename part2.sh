@@ -126,6 +126,13 @@ systemctl --user enable pipewire-media-session.service
 systemctl enable bluetooth.service
 confirm "Did system services enable?" 
 
+#Configure journal
+echo "Storage=persistent">> /etc/systemd/journald.conf
+
+#Configure zram
+pacman -S zram-generator
+cp /archinstall/zram-generator.conf /etc/systemd/zram-generator.conf
+
 #Run mkinitcpio 
 mkinitcpio -p linux
 mkinitcpio -p linux-zen
