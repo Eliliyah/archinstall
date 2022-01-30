@@ -101,7 +101,7 @@ pacman -S ark audiocd-kio breeze-gtk dolphin elisa gwenview kdeconnect qt5-base 
 confirm "All good?" 
 
 #Instal optional applications
-pacman -S dolphin-plugins ffmpegthumbs kalarm kamoso kcalc kdegraphics-thumbnailers kdesdk-thumbnailers kfind kmix ksystemlog ktorrent aspell-en libappimage os-prober pacmanlogviewer oxygen latte-dock kvantum-theme-sweet-git ksystemstats jamesdsp intel-gpu-tools intel-media-driver haskell-emojis garuda-starship-prompt firefox-extension-plasma-integration discover --noconfirm
+pacman -S dolphin-plugins preload ffmpegthumbs kalarm kamoso kcalc kdegraphics-thumbnailers kdesdk-thumbnailers kfind kmix ksystemlog ktorrent aspell-en libappimage os-prober pacmanlogviewer oxygen latte-dock kvantum-theme-sweet-git ksystemstats jamesdsp intel-gpu-tools intel-media-driver haskell-emojis garuda-starship-prompt firefox-extension-plasma-integration discover --noconfirm
 confirm "All good?" 
 
 pacman -S fish fish-autopair gimp libreoffice-fresh discord meld file-roller vivaldi vivaldi-ffmpeg-codecs bitwarden code inkscape clementine bpytop firefox pam-u2f rclone gparted starship --noconfirm
@@ -125,11 +125,11 @@ confirm "Do you really think you're going to need that?"
 
 #Enable system services
 systemctl enable NetworkManager
-systemctl enable sddm.service
+systemctl enable sddm
 systemctl enable power-profiles-daemon 
-systemctl enable pipewire-media-session.service 
-systemctl --user enable pipewire-media-session.service 
-systemctl enable bluetooth.service
+systemctl enable pipewire-media-session 
+systemctl enable bluetooth
+systemctl enable preload
 confirm "Did system services enable?" 
 
 #Configure journal
