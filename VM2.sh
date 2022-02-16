@@ -53,19 +53,23 @@ confirm "Do you exist now?"
 #Enable SysRq key
 echo "kernel.sysrq = 1" >> /etc/sysctl.d/99-sysctl.conf
 
+#Install chaotic AUR keyring
+pacman-key --init
+pacman-key --populate
+pacman-key --recv-key FBA220DFC880C036 --keyserver keyserver.ubuntu.com
+pacman-key --lsign-key FBA220DFC880C036
+pacman -U 'https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-keyring.pkg.tar.zst' 'https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-mirrorlist.pkg.tar.zst'
+echo "
+[chaotic-aur]
+Include = /etc/pacman.d/chaotic-mirrorlist">> /etc/pacman.conf
+pacman-key -u
+pacman -Syu
+
 #Move and copy files
 chmod +x postinstall.sh
 mkdir /etc/backupfolder
 mv /etc/mkinitcpio.conf /etc/backupfolder
 cp /archinstall/mkinitcpio.conf /etc/mkinitcpio.conf
-echo "
-[endeavouros]
-Include = /etc/pacman.d/endeavouros-mirrorlist
-
-[chaotic-aur]
-Include = /etc/pacman.d/chaotic-mirrorlist">> /etc/pacman.conf
-cp /archinstall/endeavouros-mirrorlist /etc/pacman.d/endeavouros-mirrorlist
-cp /archinstall/chaotic-mirrorlist /etc/pacman.d/chaotic-mirrorlist
 ls /etc/backupfolder
 ls /etc/pacman.d
 confirm "Did all the files copy successfully?" 
@@ -76,58 +80,48 @@ nano /etc/mkinitcpio.conf
 confirm "Everything look right?"
 
 #Refresh mirrors
-pacman-key --init
+pacman -Syu
 reflector
 confirm "Mirrors okay?"
-
 #Install important packages
-pacman -S accountsservice adobe-source-han-sans-cn-fonts adobe-source-han-sans-jp-fonts adobe-source-han-sans-kr-fonts alsa-firmware alsa-plugins alsa-utils b43-fwcutter base-devel bash-completion broadcom-wl-dkms btrfs-progs cantarell-fonts crda cryptsetup device-mapper dhclient dialog diffutils dmidecode dmraid dnsmasq dnsutils dosfstools downgrade duf e2fsprogs efibootmgr efivar efitools ethtool exfatprogs f2fs-tools ffmpegthumbnailer findutils freetype2 fsarchiver git glances gnu-netcat grub grub-tools grub-btrfs haveged hdparm hwdetect hwinfo inetutils intel-ucode inxi ipw2100-fw ipw2200-fw iwd jfsutils keyserver-rank less libdvdcss libgsf libopenraw libwnck3 linux-zen linux-zen-headers logrotate lsb-release lsscsi lvm2 man-db man-pages mdadm meld mesa-utils mkinitcpio mkinitcpio-busybox mkinitcpio-nfs-utils mkinitcpio-openswap mlocate modemmanager mtools nano nano-syntax-highlighting nbd ndisc6 neofetch net-tools networkmanager networkmanager-openvpn nfs-utils nilfs-utils nmap noto-fonts nss-mdns ntfs-3g ntp openconnect opendesktop-fonts openvpn os-prober pacman-contrib pcurses perl pkgfile poppler-glib ppp pptpclient pv python python-defusedxml python-packaging rebuild-detector reflector reflector-simple reiserfsprogs rp-pppoe rsync s-nail sed sg3_utils smartmontools sof-firmware sshfs sudo sysfsutils systemd-sysvcompat texinfo tldr power-profiles-daemon ttf-bitstream-vera ttf-dejavu ttf-liberation ttf-opensans unrar unzip upower usb_modeswitch usbutils vpnc wget which whois wireless-regdb wireless_tools wpa_supplicant wvdial xdg-user-dirs xdg-utils xf86-input-libinput xf86-video-intel xfsprogs xl2tpd xorg-server xorg-xdpyinfo xorg-xinit xorg-xinput xorg-xkill xorg-xrandr xterm xterm mkinitcpio xz zsh
+pacman -Sy accountsservice adobe-source-han-sans-cn-fonts adobe-source-han-sans-jp-fonts adobe-source-han-sans-kr-fonts alsa-firmware alsa-plugins alsa-utils b43-fwcutter bash-completion broadcom-wl-dkms btrfs-progs cantarell-fonts crda cryptsetup device-mapper dhclient dialog diffutils dmidecode dmraid dnsmasq dnsutils dosfstools downgrade duf e2fsprogs ethtool exfatprogs f2fs-tools ffmpegthumbnailer findutils freetype2 fsarchiver glances gnu-netcat haveged hdparm hwdetect hwinfo inetutils intel-ucode inxi ipw2100-fw ipw2200-fw iwd jfsutils keyserver-rank less libdvdcss libgsf libopenraw libwnck3 logrotate lsb-release lsscsi lvm2 man-db man-pages mdadm meld mesa-utils mkinitcpio mkinitcpio-busybox mkinitcpio-nfs-utils mkinitcpio-openswap mlocate modemmanager mtools nano-syntax-highlighting nbd ndisc6 neofetch net-tools networkmanager networkmanager-openvpn nfs-utils nilfs-utils nmap noto-fonts nss-mdns ntfs-3g ntp openconnect opendesktop-fonts openvpn os-prober pacman-contrib pcurses perl pkgfile poppler-glib ppp pptpclient pv python python-defusedxml python-packaging rebuild-detector reflector reflector-simple reiserfsprogs rp-pppoe rsync s-nail sed sg3_utils smartmontools sof-firmware sshfs sudo sysfsutils systemd-sysvcompat texinfo tldr power-profiles-daemon ttf-bitstream-vera ttf-dejavu ttf-liberation ttf-opensans unrar unzip upower usb_modeswitch usbutils vpnc wget which whois wireless-regdb wireless_tools wpa_supplicant wvdial xdg-user-dirs xdg-utils xf86-input-libinput xf86-video-intel xfsprogs xl2tpd xorg-server xorg-xdpyinfo xorg-xinit xorg-xinput xorg-xkill xorg-xrandr xterm xterm mkinitcpio xz zsh
 confirm "All good?" 
 
 #Install build tools
-pacman -S go go-tools perl meson cmake extra-cmake-modules rust flatpak snapd yajl wget curl --noconfirm
-confirm "All good?" 
-
-#Install aur helper
-pacman -S aura
+pacman -S go go-tools meson cmake extra-cmake-modules rust flatpak yajl docker --noconfirm
 confirm "All good?" 
 
 #Install plasma 
-pacman -S ark audiocd-kio breeze-gtk dolphin elisa gwenview kdeconnect qt5-base pass kde-gtk-config khotkeys kinfocenter kinit kio-fuse konsole kscreen kwallet-pam okular plasma-desktop plasma-disks plasma-nm plasma-pa powerdevil sddm-kcm solid spectacle xsettingsd power-profiles-daemon --noconfirm
+pacman -S ark breeze-gtk dolphin elisa code kdeconnect qt5-base kde-gtk-config ksystemlog pacmanlogviewer khotkeys kinfocenter kinit kio-fuse konsole kscreen okular plasma-desktop plasma-disks plasma-nm plasma-pa powerdevil sddm-kcm solid spectacle xsettingsd power-profiles-daemon fish wayland wayland-protocols --noconfirm
 confirm "All good?" 
-
-#Install zram
-echo "zram">> /etc/modules-load.d/zram.conf
-echo "options zram num_devices=2">> /etc/modprobe.d/zram.conf
-echo "KERNEL=="zram0", ATTR{disksize}="512M" RUN="/usr/bin/mkswap /dev/zram0", TAG+="systemd"
-KERNEL=="zram1", ATTR{disksize}="512M" RUN="/usr/bin/mkswap /dev/zram1", TAG+="systemd"">> /etc/udev/rules.d/99-zram.rules
-echo "
-/dev/zram0 none swap defaults 0 0
-/dev/zram1 none swap defaults 0 0" >> /etc/fstab
-nano /etc/fstab
-confirm "Zram looking good?"
 
 #Enable system services
 systemctl enable NetworkManager
 systemctl enable sddm.service
 systemctl enable power-profiles-daemon 
-systemctl enable pipewire.service pipewire-media-session.service 
-systemctl --user enable pipewire.service pipewire-media-session.service 
-systemctl enable bluetooth.service
 confirm "Did system services enable?" 
+
+#Configure journal
+echo "Storage=persistent">> /etc/systemd/journald.conf
+
+#Configure zram
+pacman -S zram-generator
+cp /archinstall/zram-generator.conf /etc/systemd/zram-generator.conf
 
 #Run mkinitcpio 
 mkinitcpio -p linux
 mkinitcpio -p linux-zen
 confirm "Did it work?" 
 
-#Install grub
+#Install bootloader
+pacman -Sy grub grub-tools grub-btrfs efibootmgr efivar efitools
 grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB
+confirm "All good?" 
 grub-mkconfig -o /boot/grub/grub.cfg
+nano /etc/default/grub
+confirm "All good?" 
 mv /archinstall/EllieOS /usr/share/grub/themes
 echo "GRUB_THEME="/usr/share/grub/themes/EllieOS/theme.txt"">> /etc/default/grub
 grub-mkconfig -o /boot/grub/grub.cfg
 nano /etc/default/grub
 confirm "All good?" 
-
-done
