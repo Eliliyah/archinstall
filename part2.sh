@@ -145,7 +145,8 @@ mkinitcpio -p linux-zen
 confirm "Did it work?" 
 
 #Install bootloader
-pacman -Sy grub grub-tools grub-btrfs efibootmgr efivar efitools
+pacman -S grub 
+pacman -S grub-btrfs efibootmgr efivar efitools
 grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB
 grub-mkconfig -o /boot/grub/grub.cfg
 ls /etc/default
