@@ -145,6 +145,7 @@ mkinitcpio -p linux-zen
 confirm "Did it work?" 
 
 #Install bootloader
+mv /archinstall/EllieOS /usr/share/grub/themes
 pacman -S grub 
 pacman -S grub-btrfs efibootmgr efivar efitools
 grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB
@@ -152,7 +153,6 @@ grub-mkconfig -o /boot/grub/grub.cfg
 ls /etc/default
 confirm "Is the grub file there?"
 nano /etc/default/grub
-mv /archinstall/EllieOS /usr/share/grub/themes
 echo "GRUB_THEME="/usr/share/grub/themes/EllieOS/theme.txt"">> /etc/default/grub
 grub-mkconfig -o /boot/grub/grub.cfg
 confirm "All good?" 
