@@ -15,7 +15,6 @@ confirm() {
 example-function() {
     echo "$2"
 }
-
 #Partition the drive and create subvolumes
 mkfs.fat -F 32 -n EFI /dev/sda1
 mkswap -L swap -f /dev/sda2
@@ -32,3 +31,4 @@ btrfs subvolume create /mnt/@log
 btrfs subvolume create /mnt/@tmp
 btrfs subvolume create /mnt/@var
 umount -R /mnt
+lsblk
