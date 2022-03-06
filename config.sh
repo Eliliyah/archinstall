@@ -24,7 +24,6 @@ systemctl enable acpid
 systemctl enable power-profiles-daemon 
 systemctl enable bluetooth
 systemctl enable preload
-confirm "Did system services enable?" 
 
 #Configure journal
 echo "Storage=persistent">> /etc/systemd/journald.conf
@@ -43,7 +42,6 @@ MODULES=(vmd crc32c-intel)
 BINARIES=(btrfs)
 FILES=()
 HOOKS=(base systemd udev autodetect modconf block keyboard consolefont filesystems resume keymap)">> /etc/mkinitcpio.conf
-nano /etc/mkinitcpio.conf
 
 #Generate the initramfs
 mkinitcpio -p linux
