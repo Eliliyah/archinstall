@@ -1,3 +1,21 @@
+#!/usr/bin/bash
+
+#FUNCTIONS GO HERE
+
+confirm() {         
+    while true; do
+        read -p "${1}" yn
+        case $yn in
+            [Yy]* ) $2; break;;
+            [Nn]* ) exit;;
+            * ) echo "Please answer Y or N.";;
+        esac
+    done
+}
+example-function() {
+    echo "$2"
+}
+
 
 #Partition the drive and create subvolumes
 mkfs.fat -F 32 -n EFI /dev/sda1 
