@@ -34,10 +34,15 @@ echo "kernel.sysrq = 1" >> /etc/sysctl.d/99-sysctl.conf
 pacman -S zram-generator
 cp /archinstall/zram-generator.conf /etc/systemd/zram-generator.conf
 
-#Generate the initramfs
-mkdir /etc/backupfolder
-mv /etc/mkinitcpio.conf /etc/backupfolder
-cp /archinstall/mkinitcpio.conf /etc/mkinitcpio.conf
+#Configure initramfs
+sed -i '7,52 s/^/#/' /etc/mkinitcpio.conf
+echo "
+MODULES=(vmd crc32c-intel)
+BINARIES=(btrfs)
+FILES=()
+HOOKS=(base systemd udev autodetect modconf block keyboard consolefont filesystems resume keymap)">> /etc/mkinitcpio.conf
 nano /etc/mkinitcpio.conf
+
+#Generate the initramfs
 mkinitcpio -p linux
 mkinitcpio -p linux-zen
