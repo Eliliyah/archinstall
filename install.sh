@@ -26,10 +26,6 @@ chmod +x partitions.sh
 ./partitions.sh
 confirm "Were the partititons created successfully?"
 
-chmod +x mount.sh
-./mount.sh
-confirm "Did everything mount properly?"
-
 chmod +x pacstrap.sh
 ./pacstrap.sh
 confirm "Was the base system installed?"
