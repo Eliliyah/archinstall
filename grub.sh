@@ -17,7 +17,7 @@ example-function() {
 }
 
 #Install bootloader
-mv /archinstall/EllieOS /usr/share/grub/themes
+mv EllieOS /usr/share/grub/themes
 pacman -S grub grub-btrfs efibootmgr efivar efitools
 confirm "Did the packages install successfully?"
 grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB
