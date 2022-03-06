@@ -35,7 +35,7 @@ chmod +x /archinstall/arch-chroot.sh
 cd archinstall
 ./arch-chroot.sh" >> /mnt/script.sh
 chmod +x /mnt/script.sh
-arch-chroot /mnt
+arch-chroot /mnt /script.sh
 
 
 
