@@ -30,25 +30,13 @@ chmod +x pacstrap.sh
 ./pacstrap.sh
 confirm "Was the base system installed?"
 
-chmod +x user.sh
-./user.sh
-confirm "Were the locales set and user created successfully?"
+echo "git clone https://github.com/Eliliyah/archinstall
+cd archinstall
+chmod +x arch-chroot.sh
+./arch-chroot.sh" >> /mnt/script.sh
+arch-chroot /mnt
 
-chmod +x keyrings.sh
-./keyrings.sh
-confirm "Did the keyrings install and mirrors update successfully?"
 
-chmod +x pacman.sh
-./pacman.sh
-confirm "Did all packages install successfully?"
-
-chmod +x config.sh
-./config.sh
-confirm "Was the system configured successfully?"
-
-chmod +x grub.sh
-./grub.sh
-confirm "Was the bootloader installed properly?"
 
 
 
