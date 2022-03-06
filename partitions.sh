@@ -30,5 +30,14 @@ btrfs subvolume create /mnt/@cache
 btrfs subvolume create /mnt/@log
 btrfs subvolume create /mnt/@tmp
 btrfs subvolume create /mnt/@var
+mkdir /mnt/boot
+mkdir /mnt/@
+mkdir /mnt/@home
+mkdir /mnt/@root
+mkdir /mnt/@srv
+mkdir /mnt/@cache
+mkdir /mnt/@log
+mkdir /mnt/@tmp
+mkdir /mnt/@var
 umount -R /mnt
 lsblk
