@@ -32,7 +32,7 @@ echo "Storage=persistent">> /etc/systemd/journald.conf
 echo "kernel.sysrq = 1" >> /etc/sysctl.d/99-sysctl.conf
 
 #Configure zram
-pacman -S zram-generator
+pacman -S zram-generator --noconfirm
 cp /archinstall/zram-generator.conf /etc/systemd/zram-generator.conf
 
 #Configure initramfs
