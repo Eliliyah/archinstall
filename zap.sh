@@ -16,8 +16,6 @@ example-function() {
     echo "$2"
 }
 
-confirm "Are you ready to do this?"
-
 #Use timedatectl(1) to ensure the system clock is accurate:
 loadkeys us 
 timedatectl set-ntp true
@@ -30,4 +28,4 @@ sgdisk --clear \
          --new=2:0:+1GiB   --typecode=2:8200 \
          --new=3:0:0       --typecode=3:8300 \
            /dev/sda
-confirm "Did it zap?"
+
