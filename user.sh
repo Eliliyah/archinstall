@@ -36,7 +36,7 @@ LANGUAGE=en_US.UTF-8">> /etc/locale.conf
 echo "KEYMAP=us
 FONT=Lat2-Terminus16">> /etc/vconsole.conf
 echo "ellie">> /etc/hostname
-confirm "Did the time set correctly?" 
+
 
 #Set the root password
 passwd
@@ -47,4 +47,3 @@ useradd -m -G wheel -s /bin/bash ellie
 passwd ellie
 groupadd fuse
 usermod -a -G fuse ellie
-confirm "Do you exist now?" 
