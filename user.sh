@@ -37,10 +37,12 @@ echo "KEYMAP=us
 FONT=Lat2-Terminus16">> /etc/vconsole.conf
 echo "ellie">> /etc/hostname
 
-
 #Set the root password
 passwd
-EDITOR=nano visudo
+
+echo "
+%wheel ALL=(ALL:ALL) ALL
+%wheel ALL=(ALL:ALL) NOPASSWD: ALL">> /etc/sudoers
 
 #add yourself as a user
 useradd -m -G wheel -s /bin/bash ellie
