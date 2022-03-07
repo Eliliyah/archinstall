@@ -29,14 +29,13 @@ Include = /etc/pacman.d/chaotic-mirrorlist">> /etc/pacman.conf
 pacman-key --populate
 pacman-key -u
 
-confirm "Did the chaotic AUR keyring install successfully?"
 
 #Install blackarch
 cd/tmp
 curl -O https://blackarch.org/strap.sh
 chmod +x strap.sh
 ./strap.sh
-confirm "Do you really think you're going to need that?" 
+
 
 #Update mirrors and keys
 reflector
