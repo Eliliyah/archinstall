@@ -47,4 +47,3 @@ mkdir /mnt/boot
 mount /dev/sda1 /mnt/boot
 swapon -L swap
 lsblk
-confirm "Partitions look okay?" 
