@@ -30,11 +30,6 @@ echo "Storage=persistent">> /etc/systemd/journald.conf
 
 #Enable SysRq key
 echo "kernel.sysrq = 1" >> /etc/sysctl.d/99-sysctl.conf
-
-#Configure zram
-pacman -S zram-generator --noconfirm
-cp /archinstall/zram-generator.conf /etc/systemd/zram-generator.conf
-
 #Configure initramfs
 sed -i '7,52 s/^/#/' /etc/mkinitcpio.conf
 echo "
