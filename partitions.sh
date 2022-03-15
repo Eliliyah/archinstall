@@ -18,9 +18,9 @@ example-function() {
 
 
 #Partition the drive and create subvolumes
-mkfs.fat -F 32 -n EFI /dev/sda1 
-mkswap -L swap -f /dev/sda2 
-mkfs.btrfs /dev/sda3 --label=system -f
+mkfs.fat -F 32 -n EFI /dev/nvme0n1
+mkswap -L swap -f /dev/nvme0n1p2
+mkfs.btrfs /dev/nvmeon1p3 --label=system -f
 o=defaults,x-mount.mkdir
 o_btrfs=$o,defaults,noatime,autodefrag,compress=lzo
 mount -t btrfs LABEL=system /mnt 
@@ -44,6 +44,6 @@ mount -t btrfs -o subvol=@log,$o_btrfs LABEL=system /mnt/log
 mount -t btrfs -o subvol=@tmp,$o_btrfs LABEL=system /mnt/tmp
 mount -t btrfs -o subvol=@var,$o_btrfs LABEL=system /mnt/var
 mkdir /mnt/boot
-mount /dev/sda1 /mnt/boot
+mount /dev/nvme0n1p1 /mnt/boot
 swapon -L swap
 lsblk
