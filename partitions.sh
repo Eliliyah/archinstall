@@ -20,7 +20,7 @@ example-function() {
 #Partition the drive and create subvolumes
 mkfs.fat -F 32 -n EFI /dev/nvme0n1
 mkswap -L swap -f /dev/nvme0n1p2
-mkfs.btrfs /dev/nvmeon1p3 --label=system -f
+mkfs.btrfs /dev/nvme0n1p3 --label=system -f
 o=defaults,x-mount.mkdir
 o_btrfs=$o,defaults,noatime,autodefrag,compress=lzo
 mount -t btrfs LABEL=system /mnt 
