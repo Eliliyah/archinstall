@@ -44,6 +44,6 @@ mount -t btrfs -o subvol=@log,$o_btrfs LABEL=system /mnt/log
 mount -t btrfs -o subvol=@tmp,$o_btrfs LABEL=system /mnt/tmp
 mount -t btrfs -o subvol=@var,$o_btrfs LABEL=system /mnt/var
 mkdir /mnt/boot
-mount /dev/nvme0n1p1 /mnt/boot
+mount /dev/sda1 /mnt/boot
 swapon -L swap
 lsblk
