@@ -33,6 +33,6 @@ confirm "Was the base system installed?"
 echo "git clone https://github.com/Eliliyah/archinstall
 chmod +x /archinstall/arch-chroot.sh
 cd archinstall
-./arch-chroot.sh" >> /mnt/script.sh
+./vm-arch-chroot.sh" >> /mnt/script.sh
 chmod +x /mnt/script.sh
 arch-chroot /mnt /script.sh
