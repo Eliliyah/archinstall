@@ -19,11 +19,11 @@ example-function() {
 confirm "Are you ready to begin?"
 
 chmod +x VM1.sh
-./zap.sh
+./VM1.sh
 confirm "Was the drive formatted properly?"
 
 chmod +x VM2.sh
-./partitions.sh
+./VM2.sh
 confirm "Were the partititons created successfully?"
 
 chmod +x pacstrap.sh
