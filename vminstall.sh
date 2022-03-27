@@ -31,7 +31,7 @@ chmod +x pacstrap.sh
 confirm "Was the base system installed?"
 
 echo "git clone https://github.com/Eliliyah/archinstall
-chmod +x /archinstall/arch-chroot.sh
+chmod +x /archinstall/vm-arch-chroot.sh
 cd archinstall
 ./vm-arch-chroot.sh" >> /mnt/script.sh
 chmod +x /mnt/script.sh
