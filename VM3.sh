@@ -1,32 +1,3 @@
-Skip to content
-Search or jump to…
-Pull requests
-Issues
-Marketplace
-Explore
- 
-@Eliliyah 
-Eliliyah
-/
-archinstall
-Public
-Code
-Issues
-Pull requests
-Actions
-Projects
-Wiki
-Security
-Insights
-Settings
-archinstall/pacman.sh
-@Eliliyah
-Eliliyah Update pacman.sh
-Latest commit 42fdc61 20 days ago
- History
- 1 contributor
-49 lines (33 sloc)  3.58 KB
-  
 #!/usr/bin/bash
 
 #FUNCTIONS GO HERE
