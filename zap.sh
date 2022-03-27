@@ -24,8 +24,8 @@ timedatectl set-ntp true
 sgdisk --zap-all /dev/nvme0n1
 
 sgdisk --clear \
-         --new=1:0:+2048MiB --typecode=1:ef00 \
-         --new=2:0:+25,600MiB   --typecode=2:8200 \
+         --new=1:0:+3072MiB --typecode=1:ef00 \
+         --new=2:0:+25600MiB   --typecode=2:8200 \
          --new=3:0:0       --typecode=3:8300 \
            /dev/nvme0n1
 
