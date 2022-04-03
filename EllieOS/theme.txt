@@ -3,13 +3,13 @@
 
 # Global Property
 
-title-text: ""
+title-text: "Welcome to EllieOS"
 title-font: "DejaVu Sans Regular 48"
 message-font: "Terminus 16"
 message-color: "#c2b2d1" 
 message-bg-color: "#bfe1f6"
 desktop-color: "#078ecc"
-desktop-image: "background.png"
+desktop-image: "EllieOSbackground.png"
 terminal-font: "Terminus 14"
 terminal-box: "terminal_box_*.png"
 terminal-left: "0"
