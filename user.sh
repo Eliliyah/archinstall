@@ -35,7 +35,7 @@ LC_NUMERIC=en_US.UTF-8
 LANGUAGE=en_US.UTF-8">> /etc/locale.conf
 echo "KEYMAP=us
 FONT=Lat2-Terminus16">> /etc/vconsole.conf
-echo "ellie">> /etc/hostname
+echo "sky">> /etc/hostname
 
 #Set the root password
 passwd
@@ -45,7 +45,7 @@ echo "
 %wheel ALL=(ALL:ALL) NOPASSWD: ALL">> /etc/sudoers
 
 #add yourself as a user
-useradd -m -G wheel -s /bin/bash ellie
-passwd ellie
+useradd -m -G wheel -s /bin/bash sky
+passwd sky
 groupadd fuse
-usermod -a -G fuse ellie
+usermod -a -G fuse sky
