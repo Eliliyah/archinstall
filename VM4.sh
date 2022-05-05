@@ -18,7 +18,7 @@ example-function() {
 
 #Enable system services
 systemctl enable NetworkManager
-systemctl enable gdm
+systemctl enable sddm
 systemctl enable lm_sensors
 systemctl enable acpid
 systemctl enable power-profiles-daemon 
