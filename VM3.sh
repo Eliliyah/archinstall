@@ -16,6 +16,7 @@ example-function() {
     echo "Excellent. You haven't broken it. Yet."
 }
 
+
 #Install important packages
 pacman -Sy --needed aura accountsservice acpid adobe-source-han-sans-cn-fonts adobe-source-han-sans-jp-fonts adobe-source-han-sans-kr-fonts alsa-firmware alsa-plugins alsa-utils b43-fwcutter bash-completion broadcom-wl-dkms btrfs-progs cantarell-fonts crda cryptsetup device-mapper dhclient dialog diffutils dmidecode dmraid dnsmasq dnsutils dosfstools downgrade duf --noconfirm
 pacman -S e2fsprogs ethtool exfatprogs f2fs-tools ffmpegthumbnailer findutils freetype2 fsarchiver fuse glances gnu-netcat haveged hdparm hwdetect hwinfo inetutils intel-ucode inxi ipw2100-fw ipw2200-fw iwd jfsutils keyserver-rank less libdvdcss libgsf libopenraw libwnck3 lm_sensors logrotate lsb-release lsscsi lvm2 man-db man-pages mdadm meld mesa-utils --noconfirm
@@ -29,8 +30,7 @@ pacman -S --needed go go-tools meson cmake extra-cmake-modules rust flatpak yajl
 
 
 #Install plasma 
-pacman -S --needed gnome gnome-shell gnome-shell-extension-material-shell-git gdm
-systemctl enable gdm.service
+pacman -S --needed ark audiocd-kio breeze-gtk dolphin elisa gwenview kdeconnect qt5-base pass kde-gtk-config ksystemlog kcalc kalarm pacmanlogviewer khotkeys kinfocenter kinit kio-fuse konsole kscreen kwallet-pam okular plasma-desktop plasma-disks plasma-nm plasma-pa powerdevil sddm-kcm solid spectacle xsettingsd power-profiles-daemon --noconfirm
 
 
 #Instal optional applications
