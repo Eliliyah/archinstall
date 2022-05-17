@@ -24,11 +24,11 @@ chmod +x keyrings.sh
 ./keyrings.sh
 confirm "Did the keyrings install and mirrors update successfully?"
 
-chmod +x VM3.sh
+chmod +x pacman.sh
 ./VM3.sh
 confirm "Did all packages install successfully?"
 
-chmod +x VM4.sh
+chmod +x config.sh
 ./VM4.sh
 confirm "Was the system configured successfully?"
 
