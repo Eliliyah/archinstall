@@ -47,3 +47,5 @@ echo "
 #add yourself as a user
 useradd -m -G wheel -s /bin/bash ellie
 passwd ellie
+groupadd fuse
+usermod -a -G fuse ellie
