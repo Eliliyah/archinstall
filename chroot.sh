@@ -25,7 +25,7 @@ mount -t btrfs -o subvol=@cache,$o_btrfs LABEL=system /mnt/cache
 mount -t btrfs -o subvol=@log,$o_btrfs LABEL=system /mnt/log
 mount -t btrfs -o subvol=@tmp,$o_btrfs LABEL=system /mnt/tmp
 mount -t btrfs -o subvol=@var,$o_btrfs LABEL=system /mnt/var
-mount /dev/nvme0n1p1 /mnt/boot
+mount LABEL=EFI /mnt/boot
 swapon -L swap
 lsblk
 arch-chroot /mnt
