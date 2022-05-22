@@ -24,8 +24,8 @@ chmod +x keyrings.sh
 ./keyrings.sh
 confirm "Did the keyrings install and mirrors update successfully?"
 
-chmod +x pacman.sh
-./VM3.sh
+chmod +x minimal.sh
+./minimal.sh
 confirm "Did all packages install successfully?"
 
 chmod +x config.sh
