@@ -25,18 +25,18 @@ pacman -S unzip upower usb_modeswitch usbutils vpnc wget which whois wireless-re
 
 
 #Install build tools
-pacman -S --needed go go-tools meson cmake extra-cmake-modules rust flatpak yajl docker --noconfirm
+pacman -S --needed go go-tools meson cmake extra-cmake-modules rust flatpak yajl docker python2 python-systemd --noconfirm
 
 
 #Install plasma 
-pacman -S --needed ark audiocd-kio breeze-gtk dolphin elisa gwenview kdeconnect qt5-base pass kde-gtk-config ksystemlog kcalc kalarm pacmanlogviewer khotkeys kinfocenter kinit kio-fuse konsole kscreen kwallet-pam okular plasma-desktop plasma-disks plasma-nm plasma-pa powerdevil sddm-kcm solid spectacle xsettingsd power-profiles-daemon --noconfirm
+pacman -S --needed ark pass seahorse audiocd-kio breeze-gtk dolphin elisa gwenview kdeconnect qt5-base pass kde-gtk-config ksystemlog kcalc kalarm pacmanlogviewer khotkeys kinfocenter kinit kio-fuse konsole kscreen kwallet-pam okular plasma-desktop plasma-disks plasma-nm plasma-pa powerdevil sddm-kcm solid spectacle xsettingsd power-profiles-daemon --noconfirm
 
 
 #Instal optional applications
-pacman -S --needed dolphin-plugins preload ffmpegthumbs kalarm kamoso kcalc kdegraphics-thumbnailers kdesdk-thumbnailers kfind kmix ksystemlog ktorrent aspell-en libappimage os-prober pacmanlogviewer oxygen latte-dock kvantum-theme-sweet-git ksystemstats jamesdsp intel-gpu-tools intel-media-driver haskell-emojis garuda-starship-prompt firefox-extension-plasma-integration discover --noconfirm
+pacman -S --needed dolphin-plugins preload ffmpegthumbs kalarm kamoso kcalc kdegraphics-thumbnailers kdesdk-thumbnailers kfind kmix ksystemlog ktorrent aspell-en libappimage os-prober pacmanlogviewer oxygen latte-dock kvantum-theme-sweet-git ksystemstats kwalletmanager plasma-systemmonitor easyeffects intel-gpu-tools intel-media-driver haskell-emojis garuda-starship-prompt firefox-extension-plasma-integration discover flameshot teamviewer --noconfirm
 
 
-pacman -S --needed fish fish-autopair gimp libreoffice-fresh discord meld file-roller vivaldi vivaldi-ffmpeg-codecs bitwarden code inkscape clementine bpytop firefox pam-u2f rclone gparted starship --noconfirm
+pacman -S --needed fish fish-autopair gimp libreoffice-fresh android-sdk-cmdline-tools-latest android-tools android-ndk android-sdk-build-tools android-sdk-platform-tools discord meld file-roller vivaldi vivaldi-ffmpeg-codecs bitwarden code inkscape clementine bpytop firefox pam-u2f rclone gparted starship --noconfirm
 
 
 #Install audio applications
