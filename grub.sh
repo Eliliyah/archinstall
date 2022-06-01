@@ -18,7 +18,7 @@ example-function() {
 
 #Install bootloader
 pacman -S grub grub-btrfs efibootmgr efivar efitools --noconfirm
-grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB
+grub-install --target=x86_64-efi --efi-directory=/@/boot --bootloader-id=GRUB
 grub-mkconfig -o /boot/grub/grub.cfg
 sed -i '5,6 s/^/#/' /etc/default/grub
 echo "GRUB_DISTRIBUTOR="EllieOS"
