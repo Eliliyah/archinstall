@@ -16,6 +16,15 @@ example-function() {
     echo "Excellent. You haven't broken it. Yet."
 }
 
+#set time
+timedatectl set-ntp true
+timedatectl set-timezone America/New_York
+hwclock --systohc
+timedatectl set-ntp true
+timedatectl status
+locale-gen
+confirm "Did the time set correctly?"
+
 #Enable system services
 systemctl enable NetworkManager
 systemctl enable sddm
