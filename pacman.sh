@@ -27,7 +27,7 @@ pacman -Sy --needed aura accountsservice acpid adobe-source-han-sans-cn-fonts ad
 pacman -S amd-ucode amdgpu-pro-libgl amdvlk amf-amdgpu-pro opencl-amd xf86-video-amdgpu --noconfirm
 
 #Install plasma 
-pacman -S --needed ark seahorse audiocd-kio breeze-gtk dolphin elisa gwenview kdeconnect qt5-base pass kde-gtk-config ksystemlog kcalc kalarm pacmanlogviewer khotkeys kinfocenter kinit kio-fuse konsole kscreen kwallet-pam okular plasma-desktop plasma-disks plasma-nm plasma-pa powerdevil sddm-kcm solid spectacle xsettingsd power-profiles-daemon --noconfirm
+pacman -S --needed ark seahorse audiocd-kio breeze-gtk dolphin elisa gwenview kdeconnect qt5-base pass kde-gtk-config ksystemlog kcalc kalarm pacmanlogviewer khotkeys kinfocenter kinit kio-fuse konsole kscreen kwallet-pam kwallet-manager okular plasma-desktop plasma-disks plasma-nm plasma-pa powerdevil sddm-kcm solid spectacle xsettingsd power-profiles-daemon --noconfirm
 
 
 #Instal optional applications
@@ -44,4 +44,4 @@ pacman -S --needed gst-libav gst-plugin-gtk gst-plugin-msdk gst-plugin-opencv gs
 
 
 #Install virtualbox
-pacman -S --needed virtualbox-ext-vnc virtualbox-guest-iso virtualbox-guest-utils virtualbox-host-dkms virtualbox-sdk --noconfirm
+pacman -S --needed virtualbox-meta --noconfirm
