@@ -25,6 +25,9 @@ timedatectl status
 locale-gen
 confirm "Did the time set correctly?"
 
+#enable late microcode updates
+echo 1 > /sys/devices/system/cpu/microcode/reload
+
 #Enable system services
 systemctl enable NetworkManager
 systemctl enable sddm
@@ -35,7 +38,7 @@ systemctl enable bluetooth
 systemctl enable preload
 
 #Configure journal
-echo "Storage=persistent">> /etc/systemd/journald.conf
+echo "Storage=persistent" >> /etc/systemd/journald.conf
 
 #Enable SysRq key
 echo "kernel.sysrq = 1" >> /etc/sysctl.d/99-sysctl.conf
@@ -47,10 +50,10 @@ cp /archinstall/zram-generator.conf /etc/systemd/zram-generator.conf
 #Configure initramfs
 sed -i '7,52 s/^/#/' /etc/mkinitcpio.conf
 echo "
-MODULES=(vmd crc32c-intel)
+MODULES=(amdgpu radeon)
 BINARIES=(btrfs)
 FILES=()
-HOOKS=(base systemd udev autodetect modconf block keyboard consolefont filesystems resume keymap)">> /etc/mkinitcpio.conf
+HOOKS=(base systemd udev autodetect modconf block keyboard consolefont filesystems resume keymap)" >> /etc/mkinitcpio.conf
 
 #Generate the initramfs
 mkinitcpio -p linux
