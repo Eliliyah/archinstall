@@ -50,10 +50,11 @@ cp /archinstall/zram-generator.conf /etc/systemd/zram-generator.conf
 #Configure initramfs
 sed -i '7,52 s/^/#/' /etc/mkinitcpio.conf
 echo "
-MODULES=(amdgpu radeon)
+COMPRESSION="lzop"
+MODULES=(crc32c intel_agp i915 amdgpu radeon nouveau)
 BINARIES=(btrfs)
 FILES=()
-HOOKS=(base systemd udev autodetect modconf block keyboard consolefont filesystems resume keymap)" >> /etc/mkinitcpio.conf
+HOOKS=(base udev autodetect modconf block keyboard keymap consolefont resume filesystems grub-btrfs-overlayfs) " >> /etc/mkinitcpio.conf
 
 #Generate the initramfs
 mkinitcpio -p linux
