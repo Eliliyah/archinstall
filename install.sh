@@ -22,7 +22,7 @@ chmod +x zap.sh
 ./zap.sh
 confirm "Was the drive formatted properly?"
 
-chmod +x partitions2.sh
+chmod +x partitions.sh
 ./partitions.sh
 confirm "Were the partititons created successfully?"
 
