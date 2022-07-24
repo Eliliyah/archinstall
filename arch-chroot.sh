@@ -24,8 +24,8 @@ chmod +x keyrings.sh
 ./keyrings.sh
 confirm "Did the keyrings install and mirrors update successfully?"
 
-chmod +x packages.sh
-./packages.sh
+chmod +x gnome-packages.sh
+./gnome-packages.sh
 confirm "Did all packages install successfully?"
 
 chmod +x config.sh
