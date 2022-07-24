@@ -30,7 +30,7 @@ echo 1 > /sys/devices/system/cpu/microcode/reload
 
 #Enable system services
 systemctl enable NetworkManager
-systemctl enable sddm
+systemctl enable gdm
 systemctl enable lm_sensors
 systemctl enable acpid
 systemctl enable power-profiles-daemon 
@@ -51,23 +51,22 @@ cp /archinstall/zram-generator.conf /etc/systemd/zram-generator.conf
 cp /archinstall/root /etc/snapper/configs/root
 
 #Configure initramfs for amd
-#sed -i '7,52 s/^/#/' /etc/mkinitcpio.conf
-#echo "
-#COMPRESSION="lzop"
-#MODULES=(crc32c intel_agp i915 amdgpu radeon nouveau)
-#BINARIES=(btrfs)
-#FILES=()
-#HOOKS=(base udev autodetect modconf block keyboard keymap consolefont resume filesystems grub-btrfs-overlayfs) " >> /etc/mkinitcpio.conf
-
-#Configure initramfs for intel
 sed -i '7,52 s/^/#/' /etc/mkinitcpio.conf
 echo "
 COMPRESSION="lzop"
-MODULES=(crc32c intel_agp i915 vmd)
+MODULES=(crc32c intel_agp i915 amdgpu radeon nouveau)
 BINARIES=(btrfs)
 FILES=()
 HOOKS=(base udev autodetect modconf block keyboard keymap consolefont resume filesystems grub-btrfs-overlayfs) " >> /etc/mkinitcpio.conf
 
+#Configure initramfs for intel
+#sed -i '7,52 s/^/#/' /etc/mkinitcpio.conf
+#echo "
+#COMPRESSION="lzop"
+#MODULES=(crc32c intel_agp i915 vmd)
+#BINARIES=(btrfs)
+#FILES=()
+#HOOKS=(base udev autodetect modconf block keyboard keymap consolefont resume filesystems grub-btrfs-overlayfs) " >> /etc/mkinitcpio.conf
 
 #Generate the initramfs
 mkinitcpio -p linux
