@@ -30,6 +30,8 @@ chmod +x pacstrap.sh
 ./pacstrap.sh
 confirm "Was the base system installed?"
 
+genfstab -p -U /mnt >> /mnt/etc/fstab
+
 echo "git clone https://github.com/Eliliyah/archinstall
 chmod +x /archinstall/arch-chroot.sh
 cd archinstall
