@@ -19,13 +19,15 @@ example-function() {
 chmod +x user.sh
 ./user.sh
 confirm "Were the locales set and user created successfully?"
-
+pacman-key --init
+pacman-key --update
+pacman -Syu
 chmod +x keyrings.sh
 ./keyrings.sh
 confirm "Did the keyrings install and mirrors update successfully?"
 
 chmod +x packages.sh
-./gnome-packages.sh
+./packages.sh
 confirm "Did all packages install successfully?"
 
 chmod +x config.sh
