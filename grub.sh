@@ -18,11 +18,11 @@ example-function() {
 
 #Install bootloader
 pacman -S grub grub-btrfs efibootmgr efivar efitools --noconfirm
-grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=GRUB
+grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB
 grub-mkconfig -o /boot/grub/grub.cfg
 sed -i '5,6 s/^/#/' /etc/default/grub
 echo "GRUB_DISTRIBUTOR="EllieOS"
-GRUB_CMDLINE_LINUX_DEFAULT="rd.udev.log_priority=3 vt.global_cursor_default=0 loglevel=3""
+GRUB_CMDLINE_LINUX_DEFAULT="loglevel=3""
 GRUB_THEME="/usr/share/grub/themes/EllieOS/theme.txt"">> /etc/default/grub
 mv /archinstall/EllieOS /usr/share/grub/themes
 grub-mkconfig -o /boot/grub/grub.cfg
