@@ -69,7 +69,7 @@ COMPRESSION="zstd"
 MODULES=(crc32c)
 BINARIES=()
 FILES=()
-HOOKS=(base udev autodetect microcode kms modconf block keyboard keymap consolefont plymouth filesystems) " >> /etc/mkinitcpio.conf
+HOOKS=(base udev autodetect microcode kms modconf block keyboard keymap consolefont filesystems) " >> /etc/mkinitcpio.conf
 
 #Generate the initramfs
 mkinitcpio -p linux
