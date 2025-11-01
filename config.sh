@@ -26,28 +26,54 @@ locale-gen
 confirm "Did the time set correctly?"
 
 #install system services
-pacman -S networkmanager sddm lm_sensors acpid power-profiles-daemon bluez bluez-utils pulseaudio-bluetooth blueman preload upower
+pacman -S networkmanager 
+systemctl enable networkmanager
+confirm "Did networkmanager install?"
+
+pacman -S sddm 
+systemctl enable sddm
+confirm "Did sddm install?"
+
+pacman -S lm_sensors 
+systemctl enable lm_sensors
+confirm "Did lmsensors install?"lm_sensors acpid power-profiles-daemon  preload upower
+
+pacman -S acpid 
+systemctl enable acpid
+confirm "Did acpid install?"
+
+pacman -S power-profiles-daemon 
+systemctl enable power-profiles-daemon
+confirm "Did power-profiles-daemon install?"
+
+pacman -S bluez bluez-utils pulseaudio-bluetooth blueman 
+systemctl enable bluetooth
+confirm "Did bluetooth install?"
+
+pacman -S preload 
+systemctl enable preload
+confirm "Did preload install?"
+
+pacman -S upower 
+systemctl enable upower
+confirm "Did upower install?"
 
 #Install NVIDIA drivers
 sudo pacman -S nvidia-prime nvidia-settings nvidia-utils libva-nvidia-driver linux-firmware-nvidia opencl-nvidia egl-gbm egl-wayland nvidia-lts
 
 #Install asus drivers
-pacman -S asusctl rog-control-center asus-fan-control 
+pacman -S rog-control-center asus-fan-control 
 
 #Enable system services
-systemctl enable NetworkManager
-systemctl enable sddm
-systemctl enable lm_sensors
-systemctl enable acpid
-systemctl enable power-profiles-daemon 
-systemctl enable bluetooth
-systemctl enable preload
-systemctl enable asusd
 systemctl enable nvidia-powerd
-systemctl enable upower
+
+#install aura and install asusctl
+pacman -S aura
+aura -A asusctl
+confirm "Did asusctl install?"
 
 #install extra packages
-pacman -S konsole xterm fish vivaldi iwd plasma plasma-meta discord aura timeshift starship vscodium btop dolphin strawberry libreoffice-fresh ttf-daddytime-mono-nerd kde-style-oxygen-qt6
+pacman -S --needed konsole xterm fish vivaldi iwd plasma plasma-meta discord aura timeshift starship vscodium btop dolphin strawberry libreoffice-fresh ttf-daddytime-mono-nerd kde-style-oxygen-qt6
 
 #Configure journal
 echo "Storage=persistent" >> /etc/systemd/journald.conf
