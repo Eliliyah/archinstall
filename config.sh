@@ -25,11 +25,8 @@ timedatectl status
 locale-gen
 confirm "Did the time set correctly?"
 
-#enable late microcode updates
-echo 1 > /sys/devices/system/cpu/microcode/reload
-
 #install system services
-pacman -S NetworkManager sddm lm_sensors acpid power-profiles-daemon bluetooth preload upower
+pacman -S networkmanager sddm lm_sensors acpid power-profiles-daemon bluez bluez-utils pulseaudio-bluetooth blueman preload upower
 
 #Install NVIDIA drivers
 sudo pacman -S nvidia-prime nvidia-settings nvidia-utils libva-nvidia-driver linux-firmware-nvidia opencl-nvidia egl-gbm egl-wayland nvidia-lts
