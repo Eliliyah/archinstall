@@ -26,35 +26,35 @@ locale-gen
 confirm "Did the time set correctly?"
 
 #install system services
-pacman -S --needed networkmanager 
+pacman -S --needed networkmanager --noconfirm
 systemctl enable networkmanager
 confirm "Did networkmanager install?"
 
-pacman -S --needed sddm 
+pacman -S --needed sddm --noconfirm
 systemctl enable sddm
 confirm "Did sddm install?"
 
-pacman -S --needed lm_sensors 
+pacman -S --needed lm_sensors --noconfirm
 systemctl enable lm_sensors
 confirm "Did lmsensors install?"lm_sensors acpid power-profiles-daemon  preload upower
 
-pacman -S --needed acpid 
+pacman -S --needed acpid --noconfirm
 systemctl enable acpid
 confirm "Did acpid install?"
 
-pacman -S --needed power-profiles-daemon 
+pacman -S --needed power-profiles-daemon --noconfirm
 systemctl enable power-profiles-daemon
 confirm "Did power-profiles-daemon install?"
 
-pacman -S --needed bluez bluez-utils pulseaudio-bluetooth blueman 
+pacman -S --needed bluez bluez-utils pulseaudio-bluetooth blueman --noconfirm
 systemctl enable bluetooth
 confirm "Did bluetooth install?"
 
-pacman -S --needed preload 
+pacman -S --needed preload --noconfirm
 systemctl enable preload
 confirm "Did preload install?"
 
-pacman -S --needed upower 
+pacman -S --needed upower --noconfirm
 systemctl enable upower
 confirm "Did upower install?"
 
@@ -66,6 +66,7 @@ pacman -S rog-control-center asus-fan-control
 
 #Enable system services
 systemctl enable nvidia-powerd
+confirm "Did nvidia-powerd install?"
 
 #install aura and install asusctl
 pacman -S aura
@@ -73,7 +74,7 @@ aura -A asusctl
 confirm "Did asusctl install?"
 
 #install extra packages
-pacman -S --needed konsole xterm fish vivaldi iwd plasma plasma-meta discord aura timeshift starship vscodium btop dolphin strawberry libreoffice-fresh ttf-daddytime-mono-nerd kde-style-oxygen-qt6
+pacman -S --needed konsole xterm fish vivaldi iwd plasma plasma-meta discord aura timeshift starship vscodium btop dolphin strawberry libreoffice-fresh ttf-daddytime-mono-nerd kde-style-oxygen-qt6 --noconfirm
 
 #Configure journal
 echo "Storage=persistent" >> /etc/systemd/journald.conf
@@ -84,9 +85,6 @@ echo "kernel.sysrq = 1" >> /etc/sysctl.d/99-sysctl.conf
 #Configure zram
 pacman -S zram-generator --noconfirm
 cp /archinstall/zram-generator.conf /etc/systemd/zram-generator.conf
-
-configure snapper
-cp /archinstall/root /etc/snapper/configs/root
 
 #Configure initramfs for nvidia
 sed -i '7,52 s/^/#/' /etc/mkinitcpio.conf
@@ -101,3 +99,4 @@ HOOKS=(base udev autodetect microcode kms modconf block keyboard keymap consolef
 mkinitcpio -p linux
 mkinitcpio -p linux-zen
 mkinitcpio -p linux-lts
+confirm "Did the initramfs generate successfully?"
