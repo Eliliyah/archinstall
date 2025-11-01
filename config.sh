@@ -26,35 +26,35 @@ locale-gen
 confirm "Did the time set correctly?"
 
 #install system services
-pacman -S networkmanager 
+pacman -S --needed networkmanager 
 systemctl enable networkmanager
 confirm "Did networkmanager install?"
 
-pacman -S sddm 
+pacman -S --needed sddm 
 systemctl enable sddm
 confirm "Did sddm install?"
 
-pacman -S lm_sensors 
+pacman -S --needed lm_sensors 
 systemctl enable lm_sensors
 confirm "Did lmsensors install?"lm_sensors acpid power-profiles-daemon  preload upower
 
-pacman -S acpid 
+pacman -S --needed acpid 
 systemctl enable acpid
 confirm "Did acpid install?"
 
-pacman -S power-profiles-daemon 
+pacman -S --needed power-profiles-daemon 
 systemctl enable power-profiles-daemon
 confirm "Did power-profiles-daemon install?"
 
-pacman -S bluez bluez-utils pulseaudio-bluetooth blueman 
+pacman -S --needed bluez bluez-utils pulseaudio-bluetooth blueman 
 systemctl enable bluetooth
 confirm "Did bluetooth install?"
 
-pacman -S preload 
+pacman -S --needed preload 
 systemctl enable preload
 confirm "Did preload install?"
 
-pacman -S upower 
+pacman -S --needed upower 
 systemctl enable upower
 confirm "Did upower install?"
 
