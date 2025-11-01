@@ -18,8 +18,8 @@ example-function() {
 
 
 #Partition the drive 
-mkfs.fat -F 32 -n EFI /0dev/nvme0n1p1
-mkswap -L swap -f /dev/nvmee0n1p2
+mkfs.fat -F 32 -n EFI /dev/nvme0n1p1
+mkswap -L swap -f /dev/nvme0n1p2
 mkfs.btrfs /dev/nvme0n1p3 --label=system -f
 o=defaults,x-mount.mkdir
 o_btrfs=$o,defaults,noatime,compress=zstd,commit=120
@@ -36,9 +36,9 @@ btrfs subvolume create /mnt/@
 btrfs subvolume create /mnt/@home
 btrfs subvolume create /mnt/@root
 btrfs subvolume create /mnt/@srv
-btrfs subvolume create /mnt/@var/log
-btrfs subvolume create /mnt/@var/tmp
-btrfs subvolume create /mnt/@var/cache
+btrfs subvolume create /mnt/@log
+btrfs subvolume create /mnt/@tmp
+btrfs subvolume create /mnt/@cache
 rm -rf /mnt/log
 rm -rf /mnt/tmp
 rm -rf /mnt/cache
@@ -55,7 +55,7 @@ mount -t btrfs -o subvol=@srv,$o_btrfs LABEL=system /mnt/srv
 mount -t btrfs -o subvol=@log,$o_btrfs LABEL=system /mnt/var/log
 mount -t btrfs -o subvol=@tmp,$o_btrfs LABEL=system /mnt/var/tmp
 mount -t btrfs -o subvol=@cache,$o_btrfs LABEL=system /mnt/var/cache
-mount /dev/nvme01np1 /mnt/boot/efi
+mount /dev/nvme0n1p1 /mnt/boot/efi
 swapon /dev/nvme0n1p2
 btrfs quota enable /mnt
 lsblk
