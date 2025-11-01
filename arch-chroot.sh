@@ -1,4 +1,4 @@
-#!/usr/bin/bashhttps://jitsi.org
+#!/usr/bin/bash
 
 #FUNCTIONS GO HERE
 
