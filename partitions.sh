@@ -26,8 +26,6 @@ o_btrfs=$o,defaults,noatime,compress=zstd,commit=120
 mount -t btrfs LABEL=system /mnt 
 
 #create subvolumes
-mkdir /mnt/boot
-mkdir /mnt/boot/efi
 mkdir /mnt/var
 mkdir /mnt/var/log
 mkdir /mnt/var/tmp
@@ -39,6 +37,8 @@ btrfs subvolume create /mnt/@srv
 btrfs subvolume create /mnt/@log
 btrfs subvolume create /mnt/@tmp
 btrfs subvolume create /mnt/@cache
+mkdir /mnt/boot
+mkdir /mnt/boot/efi
 rm -rf /mnt/log
 rm -rf /mnt/tmp
 rm -rf /mnt/cache
