@@ -60,9 +60,11 @@ confirm "Did upower install?"
 
 #Install NVIDIA drivers
 pacman -S nvidia-prime nvidia-settings nvidia-utils libva-nvidia-driver linux-firmware-nvidia opencl-nvidia egl-gbm egl-wayland nvidia-lts
+confirm "Did nvidia install?"
 
 #Install asus drivers
 pacman -S rog-control-center asus-fan-control 
+confirm "Did asus install?"
 
 #Enable system services
 systemctl enable nvidia-powerd
@@ -90,7 +92,7 @@ cp /archinstall/zram-generator.conf /etc/systemd/zram-generator.conf
 sed -i '7,52 s/^/#/' /etc/mkinitcpio.conf
 echo "
 COMPRESSION="zstd"
-MODULES=(crc32c)
+MODULES=(crc32c nvidia nvidia_modeset nvidia_uvm nvidia_drm)
 BINARIES=()
 FILES=()
 HOOKS=(base udev autodetect microcode kms modconf block keyboard keymap consolefont filesystems) " >> /etc/mkinitcpio.conf
