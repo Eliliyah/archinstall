@@ -59,7 +59,7 @@ systemctl enable upower
 confirm "Did upower install?"
 
 #Install NVIDIA drivers
-sudo pacman -S nvidia-prime nvidia-settings nvidia-utils libva-nvidia-driver linux-firmware-nvidia opencl-nvidia egl-gbm egl-wayland nvidia-lts
+pacman -S nvidia-prime nvidia-settings nvidia-utils libva-nvidia-driver linux-firmware-nvidia opencl-nvidia egl-gbm egl-wayland nvidia-lts
 
 #Install asus drivers
 pacman -S rog-control-center asus-fan-control 
