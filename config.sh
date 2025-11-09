@@ -75,8 +75,11 @@ pacman -S aura
 aura -A asusctl
 confirm "Did asusctl install?"
 
-#install extra packages
-pacman -S --needed konsole xterm fish vivaldi iwd plasma plasma-meta discord aura timeshift starship vscodium btop dolphin strawberry libreoffice-fresh ttf-daddytime-mono-nerd kde-style-oxygen-qt6 --noconfirm
+for pkg in konsole xterm fish vivaldi iwd plasma plasma-meta discord aura starship vscodium btop dolphin strawberry libreoffice-fresh ttf-daddytime-mono-nerd kde-style-oxygen-qt6; do
+  pacman -S --needed --noconfirm "$pkg"
+done
+
+confirm "Did everything install?"
 
 #Configure journal
 echo "Storage=persistent" >> /etc/systemd/journald.conf
