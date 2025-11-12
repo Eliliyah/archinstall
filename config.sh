@@ -91,6 +91,13 @@ echo "kernel.sysrq = 1" >> /etc/sysctl.d/99-sysctl.conf
 pacman -S zram-generator --noconfirm
 cp /archinstall/zram-generator.conf /etc/systemd/zram-generator.conf
 
+#Configure sddm
+aura -A archlinux-themes-sddm --noconfirm
+echo "[Theme]
+Current=archlinux-simplyblack">> /etc/sddm.conf
+nano /etc/sddm.conf
+confirm "All good?"
+
 #Configure initramfs for nvidia
 sed -i '7,52 s/^/#/' /etc/mkinitcpio.conf
 echo "
