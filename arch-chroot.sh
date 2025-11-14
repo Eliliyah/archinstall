@@ -40,6 +40,8 @@ chmod +x grub.sh
 ./grub.sh
 confirm "Was the bootloader installed properly?"
 
+mv /archinstall/files /home/ellie
+
 chmod +x blackarch.sh
 ./blackarch.sh
 nano /etc/pacman.conf
