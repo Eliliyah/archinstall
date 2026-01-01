@@ -27,7 +27,7 @@ confirm "Did the time set correctly?"
 
 #install system services
 pacman -S --needed networkmanager --noconfirm
-systemctl enable networkmanager
+systemctl enable NetworkManager
 confirm "Did networkmanager install?"
 
 pacman -S --needed sddm --noconfirm
@@ -36,7 +36,7 @@ confirm "Did sddm install?"
 
 pacman -S --needed lm_sensors --noconfirm
 systemctl enable lm_sensors
-confirm "Did lmsensors install?"lm_sensors acpid power-profiles-daemon  preload upower
+confirm "Did lmsensors install?"
 
 pacman -S --needed acpid --noconfirm
 systemctl enable acpid
@@ -46,7 +46,7 @@ pacman -S --needed power-profiles-daemon --noconfirm
 systemctl enable power-profiles-daemon
 confirm "Did power-profiles-daemon install?"
 
-pacman -S --needed bluez bluez-utils pulseaudio-bluetooth blueman --noconfirm
+pacman -S --needed bluez bluez-utils --noconfirm
 systemctl enable bluetooth
 confirm "Did bluetooth install?"
 
@@ -75,8 +75,13 @@ pacman -S aura
 aura -A asusctl
 confirm "Did asusctl install?"
 
-for pkg in konsole xterm fish vivaldi iwd plasma plasma-meta discord aura starship vscodium btop dolphin strawberry libreoffice-fresh ttf-daddytime-mono-nerd kde-style-oxygen-qt6; do
+for pkg in zellij yazi rsync vim brave-bin konsole fish vivaldi iwd plasma plasma-meta aura starship vscodium btop dolphin libreoffice-fresh ttf-daddytime-mono-nerd; do
   pacman -S --needed --noconfirm "$pkg"
+done
+
+#Install AUR packages
+for pkg in beautyline oxygen-cursors-extra chromium-extension-plasma-integration hunspell-en-med-glut-git debtap masterpdfeditor-free appimagelauncher hunspell-en-med-glut-git libreoffice-extension-cleandoc ocs-url onevpl-intel-gpu pacdiff-pacman-hook-git wd719x-firmware aic94xx-firmware; do
+  aura -A --noconfirm "$pkg"
 done
 
 confirm "Did everything install?"
@@ -87,28 +92,42 @@ echo "Storage=persistent" >> /etc/systemd/journald.conf
 #Enable SysRq key
 echo "kernel.sysrq = 1" >> /etc/sysctl.d/99-sysctl.conf
 
+#enable late microcode updates
+pacman -S --needed intel-ucode --noconfirm
+
+#configure rclone
+mkdir /home/ellie/proton
+pacman -S --needed rclone rsync --noconfirm
+rclone config
+rsync -av /archinstall/rclone.service /etc/systemd/system/rclone.service
+systemctl enable rclone
+confirm "Did rclone configure successfully?"
+
 #Configure zram
 pacman -S zram-generator --noconfirm
-cp /archinstall/zram-generator.conf /etc/systemd/zram-generator.conf
+rsync -av /archinstall/zram-generator.conf /etc/systemd/zram-generator.conf
 
 #Configure sddm
 aura -A archlinux-themes-sddm --noconfirm
 echo "[Theme]
 Current=archlinux-simplyblack">> /etc/sddm.conf
-nano /etc/sddm.conf
 confirm "All good?"
 
-#Configure initramfs for nvidia
-sed -i '7,52 s/^/#/' /etc/mkinitcpio.conf
-echo "
-COMPRESSION="zstd"
-MODULES=(crc32c nvidia nvidia_modeset nvidia_uvm nvidia_drm)
-BINARIES=()
-FILES=()
-HOOKS=(base udev autodetect microcode kms modconf block keyboard keymap consolefont filesystems) " >> /etc/mkinitcpio.conf
+#sync files
+chmod +x files.sh
+./files.sh
+confirm "Did home files sync?"
+
+#set theme elements
+pacman -S --needed beautyline oxygen --noconfirm
+mkdir /home/ellie/.local/share/
+mkdir /home/ellie/.local/share/color-schemes/
+rsync -av /archinstall/files/HotPinkAnemone.colors /home/ellie/.local/share/color-schemes/
+mkdir /home/ellie/Pictures
+rsync -av /archinstall/files/arch_pink_background.png /home/ellie/Pictures
 
 #Generate the initramfs
 mkinitcpio -p linux
-mkinitcpio -p linux-zen
 mkinitcpio -p linux-lts
+mkinitcpio -p linux-zen
 confirm "Did the initramfs generate successfully?"

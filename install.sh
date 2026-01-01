@@ -29,15 +29,11 @@ confirm "Were the partititons created successfully?"
 chmod +x pacstrap.sh
 ./pacstrap.sh
 confirm "Was the base system installed?"
+confirm "Stop here, mount the second nvme then genfstab -p -U /mnt >> /mnt/etc/fstab"
 
 genfstab -p -U /mnt >> /mnt/etc/fstab
 
-echo "git clone https://github.com/Eliliyah/archinstall
-chmod +x /archinstall/arch-chroot.sh
-cd archinstall
-./arch-chroot.sh" >> /mnt/script.sh
-chmod +x /mnt/script.sh
-arch-chroot /mnt ./script.sh
+arch-chroot /mnt 
 
 
 
