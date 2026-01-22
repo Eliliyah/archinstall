@@ -39,6 +39,8 @@ alias mirrors="sudo reflector --latest 50 --number 20 --sort score --save /etc/p
 alias mirrora="sudo reflector --latest 50 --number 20 --sort age --save /etc/pacman.d/mirrorlist"
 alias grub="cd /home/ellie && ./grub.sh"
 alias rebuild="cd /home/ellie && ./update.sh"
+alias penelope="ssh ellie@192.168.0.5"
+alias rpi="ssh ellie@192.168.0.2"
 
 set -x SHELL_ICON 🐠
 set -U fish_greeting
