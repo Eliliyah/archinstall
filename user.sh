@@ -1,6 +1,4 @@
-#!/usr/bin/bash
-
-#FUNCTIONS GO HERE
+#!/usr/bin/env bash 
 
 confirm() {         
     while true; do
@@ -12,10 +10,8 @@ confirm() {
         esac
     done
 }
-example-function() {
-    echo "Excellent. You haven't broken it. Yet."
-}
-    #Generate locales
+
+#Generate locales
 ln -sf /usr/share/zoneinfo/America/New_York /etc/localtime
 hwclock --systohc
 echo "en_US.UTF-8 UTF-8">> /etc/locale.gen
